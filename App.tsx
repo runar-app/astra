@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NavigationContainer, DarkTheme, DefaultTheme } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { RunicDrawsStackScreen } from "./views/RunicDraws";
 import { SettingsStackScreen } from "./views/Settings";
@@ -8,13 +8,14 @@ import { GeneratorStackScreen } from "./views/Generator";
 import HomeIcon from "./icons/HomeIcon";
 import LibraryIcon from "./icons/LibraryIcon";
 import { useColorScheme } from "react-native";
+import { RunarTheme } from "./commonStyle";
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   const scheme = useColorScheme();
   return (
-    <NavigationContainer theme={scheme === "dark" ? DarkTheme : DefaultTheme}>
+    <NavigationContainer theme={RunarTheme}>
       <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen
           name="Runic Draws"
