@@ -1,0 +1,3 @@
+interface BaseIconProps {
+  color: string;
+}
