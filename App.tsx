@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Super Duper app!</Text>
+      <Text>Runar astra!</Text>
       <StatusBar style="auto" />
     </View>
   );
