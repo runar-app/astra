@@ -15,7 +15,7 @@ const GeneratorStack = createNativeStackNavigator();
 export function GeneratorStackScreen() {
   return (
     <GeneratorStack.Navigator>
-      <GeneratorStack.Screen name="Generator" component={GeneratorScreen} />
+      <GeneratorStack.Screen name="GeneratorMain" component={GeneratorScreen} />
     </GeneratorStack.Navigator>
   );
 }

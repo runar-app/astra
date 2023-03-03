@@ -16,7 +16,7 @@ const RunicDrawsStack = createNativeStackNavigator();
 export function RunicDrawsStackScreen() {
   return (
     <RunicDrawsStack.Navigator>
-      <RunicDrawsStack.Screen name="Runic" component={RunicDrawsScreen} />
+      <RunicDrawsStack.Screen name="RunicMain" component={RunicDrawsScreen} />
     </RunicDrawsStack.Navigator>
   );
 }
