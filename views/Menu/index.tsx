@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Text, View, StyleSheet } from "react-native";
+import { Button, Text, View, StyleSheet, ImageBackground } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const styles = StyleSheet.create({
@@ -7,7 +7,12 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#ffffff",
     width: "90%",
-    padding: 6,
+    padding: 12,
+  },
+  image: {
+    flex: 1,
+    justifyContent: "center",
+    width: "100%",
   },
 });
 
@@ -26,22 +31,35 @@ function FavoriteScreen() {
     </View>
   );
 }
-
 function AboutScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: "flex-start", alignItems: "center", paddingTop: 15 }}>
-      <Text style={styles.aboutText}>Версия приложения 1.0</Text>
-      <Text style={styles.aboutText}>
-        Runar — это приложение для гадания на скандинавских рунах и изучения скандинавской мифологии
-        и сказок. Содержит 8 видов рунных раскладов, толкования рун. В разделе Библиотека вы можете
-        почитать скандинавские саги и сказки.
-      </Text>
-      <Text style={styles.aboutText}>
-        С разрешения правообладателей, в приложении использованы следующие музыкальные композиции: -
-        Лёдъ (использованы композиции - «Черная Ладья», «Мать моя сказала»),
-        https://lyod1.bandcamp.com/releases - Danheim (использованы композиции - «Runar», «Kala»),
-        https://danheimmusic.com/
-      </Text>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "flex-start",
+        width: "100%",
+        alignItems: "center",
+        paddingTop: 0,
+      }}
+    >
+      <ImageBackground
+        source={require("../../assets/bg/darkVertical.png")}
+        resizeMode="cover"
+        style={styles.image}
+      >
+        <Text style={styles.aboutText}>Версия приложения 1.0</Text>
+        <Text style={styles.aboutText}>
+          Runar — это приложение для гадания на скандинавских рунах и изучения скандинавской
+          мифологии и сказок. Содержит 8 видов рунных раскладов, толкования рун. В разделе
+          Библиотека вы можете почитать скандинавские саги и сказки.
+        </Text>
+        <Text style={styles.aboutText}>
+          С разрешения правообладателей, в приложении использованы следующие музыкальные композиции:
+          - Лёдъ (использованы композиции - «Черная Ладья», «Мать моя сказала»),
+          https://lyod1.bandcamp.com/releases - Danheim (использованы композиции - «Runar», «Kala»),
+          https://danheimmusic.com/
+        </Text>
+      </ImageBackground>
     </View>
   );
 }
