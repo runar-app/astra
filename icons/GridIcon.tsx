@@ -1,0 +1,13 @@
+import * as React from "react";
+import Svg, { Path } from "react-native-svg";
+
+export default function GridIcon({ color }: BaseIconProps) {
+  return (
+    <Svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+      <Path
+        d="M18 16C18 17.1046 17.1046 18 16 18H12C10.8954 18 10 17.1046 10 16V14C10 12.8954 10.8954 12 12 12H16C17.1046 12 18 12.8954 18 14V16ZM8 16C8 17.1046 7.10457 18 6 18H2C0.895431 18 0 17.1046 0 16V10C0 8.89543 0.895431 8 2 8H6C7.10457 8 8 8.89543 8 10V16ZM18 8C18 9.10457 17.1046 10 16 10H12C10.8954 10 10 9.10457 10 8V2C10 0.89543 10.8954 0 12 0H16C17.1046 0 18 0.895431 18 2V8ZM8 4C8 5.10457 7.10457 6 6 6H2C0.895431 6 0 5.10457 0 4V2C0 0.89543 0.895431 0 2 0H6C7.10457 0 8 0.895431 8 2V4Z"
+        fill={color}
+      />
+    </Svg>
+  );
+}

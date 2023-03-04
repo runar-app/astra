@@ -2,13 +2,15 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { RunicDrawsStackScreen } from "./views/RunicDraws";
-import { SettingsStackScreen } from "./views/Settings";
+import { MenuStackScreen } from "./views/Menu";
 import { LibraryStackScreen } from "./views/Library";
 import { GeneratorStackScreen } from "./views/Generator";
 import HomeIcon from "./icons/HomeIcon";
 import LibraryIcon from "./icons/LibraryIcon";
 import { useColorScheme } from "react-native";
 import { RunarTheme } from "./commonStyle";
+import GridIcon from "./icons/GridIcon";
+import MenuIcon from "./icons/MenuIcon";
 
 const Tab = createBottomTabNavigator();
 
@@ -38,15 +40,15 @@ export default function App() {
           component={GeneratorStackScreen}
           options={{
             tabBarLabel: "Generator",
-            tabBarIcon: ({ color, size }) => <HomeIcon color={color} />,
+            tabBarIcon: ({ color, size }) => <GridIcon color={color} />,
           }}
         />
         <Tab.Screen
-          name="Settings"
-          component={SettingsStackScreen}
+          name="Menu"
+          component={MenuStackScreen}
           options={{
-            tabBarLabel: "Settings",
-            tabBarIcon: ({ color, size }) => <HomeIcon color={color} />,
+            tabBarLabel: "Menu",
+            tabBarIcon: ({ color, size }) => <MenuIcon color={color} />,
           }}
         />
       </Tab.Navigator>
