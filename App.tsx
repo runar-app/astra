@@ -11,6 +11,7 @@ import { useColorScheme } from "react-native";
 import { RunarTheme } from "./commonStyle";
 import GridIcon from "./icons/GridIcon";
 import MenuIcon from "./icons/MenuIcon";
+import { AssistantStackScreen } from "./views/Assistant";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,10 +21,10 @@ export default function App() {
     <NavigationContainer theme={RunarTheme}>
       <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen
-          name="Runic Draws"
-          component={RunicDrawsStackScreen}
+          name="Assistant"
+          component={AssistantStackScreen}
           options={{
-            tabBarLabel: "Runic Draws",
+            tabBarLabel: "Assistant",
             tabBarIcon: ({ color, size }) => <HomeIcon color={color} />,
           }}
         />
