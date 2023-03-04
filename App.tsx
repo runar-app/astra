@@ -21,7 +21,7 @@ export default function App() {
     <NavigationContainer theme={RunarTheme}>
       <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen
-          name="Assistant"
+          name="Assistant Section"
           component={AssistantStackScreen}
           options={{
             tabBarLabel: "Assistant",
@@ -29,7 +29,7 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Library"
+          name="Library Section"
           component={LibraryStackScreen}
           options={{
             tabBarLabel: "Library page",
@@ -37,7 +37,7 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Generator"
+          name="Generator Section"
           component={GeneratorStackScreen}
           options={{
             tabBarLabel: "Generator",
@@ -45,7 +45,7 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Menu"
+          name="Menu Section"
           component={MenuStackScreen}
           options={{
             tabBarLabel: "Menu",
