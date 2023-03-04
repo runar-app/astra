@@ -1,13 +1,11 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { RunicDrawsStackScreen } from "./views/RunicDraws";
 import { MenuStackScreen } from "./views/Menu";
 import { LibraryStackScreen } from "./views/Library";
 import { GeneratorStackScreen } from "./views/Generator";
 import HomeIcon from "./icons/HomeIcon";
 import LibraryIcon from "./icons/LibraryIcon";
-import { useColorScheme } from "react-native";
 import { RunarTheme } from "./commonStyle";
 import GridIcon from "./icons/GridIcon";
 import MenuIcon from "./icons/MenuIcon";
@@ -16,7 +14,6 @@ import { AssistantStackScreen } from "./views/Assistant";
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const scheme = useColorScheme();
   return (
     <NavigationContainer theme={RunarTheme}>
       <Tab.Navigator screenOptions={{ headerShown: false }}>
