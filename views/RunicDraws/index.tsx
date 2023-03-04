@@ -1,12 +1,18 @@
 import * as React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { View, Text } from "react-native";
-import HomeIcon from "../../icons/HomeIcon";
+import { View, Text, StyleSheet } from "react-native";
 
-function RunicDrawsScreen() {
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 30,
+    color: "#ffffff",
+  },
+});
+
+function RunicDrawsScreen({ navigation }: any) {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Runic Draws !!!!</Text>
+      <Text style={styles.text}>Hello</Text>
     </View>
   );
 }

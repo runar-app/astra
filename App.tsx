@@ -21,7 +21,7 @@ export default function App() {
           name="Runic Draws"
           component={RunicDrawsStackScreen}
           options={{
-            tabBarLabel: "Home",
+            tabBarLabel: "Runic Draws",
             tabBarIcon: ({ color, size }) => <HomeIcon color={color} />,
           }}
         />
