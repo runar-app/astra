@@ -1,7 +1,8 @@
 import * as React from "react";
-import { Button, Text, View, StyleSheet, ScrollView } from "react-native";
+import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Background } from "../../components/Background/Background";
+import { MenuScreen } from "./Menu";
 
 const styles = StyleSheet.create({
   aboutText: {
@@ -45,16 +46,6 @@ function AboutScreen() {
         </Text>
       </Background>
     </ScrollView>
-  );
-}
-
-function MenuScreen({ navigation }: any) {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Button title="Settings" onPress={() => navigation.navigate("Settings")} />
-      <Button title="Favorite" onPress={() => navigation.navigate("Favorite")} />
-      <Button title="About" onPress={() => navigation.navigate("About")} />
-    </View>
   );
 }
 
