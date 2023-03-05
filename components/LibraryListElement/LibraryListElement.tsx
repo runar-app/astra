@@ -17,7 +17,7 @@ export const LibraryListElement = ({ nodeData, onPress }: LibraryListElementProp
   const containerStyle = textNode ? styles.textMenuItem : styles.listMenuItem;
 
   return (
-    <TouchableHighlight onPress={onPress} underlayColor="#222">
+    <TouchableHighlight onPress={onPress} underlayColor="rgba(0,0,0,0.3)">
       <View style={containerStyle}>
         {nodeData.imageUrl && (
           <Image

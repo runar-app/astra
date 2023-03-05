@@ -1,10 +1,11 @@
 import * as React from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, ImageBackground, StyleSheet, View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { LibraryNode } from "../../types/Library";
 import { getLibraryNodes } from "../../services/library";
 import { SmallLoaderPage } from "../../components/Loader/SmallLoaderPage";
 import { LibraryListElement } from "../../components/LibraryListElement/LibraryListElement";
+import { Background } from "../../components/Background/Background";
 
 interface LibraryNavigationProps {
   id?: string;
@@ -35,26 +36,28 @@ function LibraryDetails({ navigation, route }: any) {
       style={{
         flex: 1,
         justifyContent: "center",
-        padding: 0,
+        paddingTop: 0,
         alignItems: "center",
       }}
     >
-      <FlatList
-        data={nodes}
-        renderItem={({ item }) => {
-          const child = item.childIds && item.childIds.length > 0;
-          const onPressHandler = () => {
-            const props: LibraryNavigationProps = { id: item._id, pageLabel: item.title };
-            navigation.push("LibraryDetails", props);
-          };
+      <Background>
+        <FlatList
+          data={nodes}
+          renderItem={({ item }) => {
+            const child = item.childIds && item.childIds.length > 0;
+            const onPressHandler = () => {
+              const props: LibraryNavigationProps = { id: item._id, pageLabel: item.title };
+              navigation.push("LibraryDetails", props);
+            };
 
-          return (
-            <LibraryListElement nodeData={item} onPress={child ? onPressHandler : undefined} />
-          );
-        }}
-        keyExtractor={(item) => item._id}
-        style={{ width: "100%" }}
-      />
+            return (
+              <LibraryListElement nodeData={item} onPress={child ? onPressHandler : undefined} />
+            );
+          }}
+          keyExtractor={(item) => item._id}
+          style={{ width: "100%" }}
+        />
+      </Background>
     </View>
   );
 }

@@ -10,6 +10,7 @@ import MenuIcon from "./icons/MenuIcon";
 import { AssistantStackScreen } from "./views/Assistant";
 import { LibraryStackScreen } from "./views/Library";
 import AudioIcon from "./icons/AudioIcon";
+import { FlatList, ImageBackground, StyleSheet, View } from "react-native";
 
 const Tab = createBottomTabNavigator();
 

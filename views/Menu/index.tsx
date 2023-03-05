@@ -1,6 +1,7 @@
 import * as React from "react";
-import { Button, Text, View, StyleSheet, ImageBackground } from "react-native";
+import { Button, Text, View, StyleSheet, ScrollView } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Background } from "../../components/Background/Background";
 
 const styles = StyleSheet.create({
   aboutText: {
@@ -8,11 +9,6 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     width: "90%",
     padding: 12,
-  },
-  image: {
-    flex: 1,
-    justifyContent: "center",
-    width: "100%",
   },
 });
 
@@ -33,20 +29,8 @@ function FavoriteScreen() {
 }
 function AboutScreen() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "flex-start",
-        width: "100%",
-        alignItems: "center",
-        paddingTop: 0,
-      }}
-    >
-      <ImageBackground
-        source={require("../../assets/bg/darkVertical.png")}
-        resizeMode="cover"
-        style={styles.image}
-      >
+    <ScrollView>
+      <Background>
         <Text style={styles.aboutText}>Версия приложения 1.0</Text>
         <Text style={styles.aboutText}>
           Runar — это приложение для гадания на скандинавских рунах и изучения скандинавской
@@ -59,8 +43,8 @@ function AboutScreen() {
           https://lyod1.bandcamp.com/releases - Danheim (использованы композиции - «Runar», «Kala»),
           https://danheimmusic.com/
         </Text>
-      </ImageBackground>
-    </View>
+      </Background>
+    </ScrollView>
   );
 }
 
