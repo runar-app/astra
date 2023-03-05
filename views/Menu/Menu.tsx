@@ -33,8 +33,6 @@ export function MenuScreen({ navigation }: any) {
       <View style={styles.mainContainer}>
         <Image style={styles.image} source={require("../../assets/illustrations/boat.png")} />
         <View style={styles.menuContainer}>
-          <MenuButton title="Settings" onPress={() => navigation.navigate("Settings")} />
-          <MenuButton title="Favorite" onPress={() => navigation.navigate("Favorite")} />
           <MenuButton title="About" onPress={() => navigation.navigate("About")} />
         </View>
       </View>

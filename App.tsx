@@ -26,14 +26,6 @@ export default function App() {
             tabBarIcon: ({ color, size }) => <HomeIcon color={color} />,
           }}
         />
-        <Tab.Screen
-          name="Audio Section"
-          component={AudioStackScreen}
-          options={{
-            tabBarLabel: "Audio",
-            tabBarIcon: ({ color, size }) => <AudioIcon color={color} />,
-          }}
-        />
 
         <Tab.Screen
           name="Library Section"
@@ -56,3 +48,14 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+/*
+<Tab.Screen
+          name="Audio Section"
+          component={AudioStackScreen}
+          options={{
+            tabBarLabel: "Audio",
+            tabBarIcon: ({ color, size }) => <AudioIcon color={color} />,
+          }}
+        />
+*/
