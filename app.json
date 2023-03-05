@@ -2,7 +2,7 @@
   "expo": {
     "name": "runar-astra",
     "slug": "runar-astra",
-    "version": "0.0.3",
+    "version": "3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
@@ -17,7 +17,8 @@
     "ios": {
       "supportsTablet": true,
       "backgroundColor": "#222222",
-      "userInterfaceStyle": "dark"
+      "userInterfaceStyle": "dark",
+      "bundleIdentifier": "com.tnco.astra"
     },
     "androidStatusBar": {
       "backgroundColor": "#000000",
