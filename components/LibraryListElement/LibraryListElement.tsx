@@ -12,8 +12,7 @@ interface LibraryListElementProps {
 
 export const LibraryListElement = ({ nodeData, onPress }: LibraryListElementProps) => {
   const type = nodeData.type;
-  console.log(type);
-  const textNode = ["plainText", "poem", "rune"].includes(nodeData.type);
+  const textNode = ["plainText", "poem", "rune"].includes(type);
   const containerStyle = textNode ? styles.textMenuItem : styles.listMenuItem;
 
   return (
