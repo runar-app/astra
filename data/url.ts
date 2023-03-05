@@ -14,11 +14,19 @@ export const getAudioListUrl = ({ lang }: GetUrlProps): string => {
   return fullUrl;
 };
 
-export const getRootLibraryUrl = ({}: GetUrlProps): string => {
+interface GetLibraryUrlProps extends GetUrlProps {
+  id?: string;
+}
+export const getLibraryUrl = ({ id }: GetLibraryUrlProps): string => {
   const baseUrl = LOCALHOST_DEBUG
     ? "http://localhost:3000/"
     : "https://runar-java-back.herokuapp.com/";
-  const fullUrl = `${baseUrl}api/v2/`;
+
+  const urlPars = [baseUrl, "api/v2/"];
+  if (id) {
+    urlPars.push(id);
+  }
+  const fullUrl = urlPars.join("");
   console.log(fullUrl);
 
   return fullUrl;

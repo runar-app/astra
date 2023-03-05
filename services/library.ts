@@ -1,16 +1,16 @@
-import { getRootLibraryUrl } from "../data/url";
-import { AudioBook } from "../types/Audio";
+import { getLibraryUrl } from "../data/url";
 import { SupportedLanguage } from "../types/Lang";
 import { LibraryNode } from "../types/Library";
 
 interface GetRootLibraryNodesProps {
   lang?: SupportedLanguage;
+  id?: string;
 }
 
-export const getRootLibraryNodes = async ({ lang }: GetRootLibraryNodesProps = {}): Promise<
+export const getLibraryNodes = async ({ lang, id }: GetRootLibraryNodesProps = {}): Promise<
   LibraryNode[]
 > => {
-  const url = getRootLibraryUrl({ lang: lang || "en" });
+  const url = getLibraryUrl({ lang: lang || "en", id });
 
   try {
     let response = await fetch(url);
