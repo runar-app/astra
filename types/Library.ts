@@ -8,6 +8,7 @@ export interface LibraryNode {
   content: string;
   sortOrder: number;
   type: string;
+  tags: string[];
   audioUrl: string;
   audioDuration: number;
 }

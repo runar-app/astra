@@ -4,13 +4,12 @@ import { SupportedLanguage } from "../types/Lang";
 
 interface GetListOfAudiosProps {
   lang?: SupportedLanguage;
-  devMode?: boolean;
 }
 
-export const getListOfAudios = async ({ lang, devMode }: GetListOfAudiosProps = {}): Promise<
+export const getListOfAudios = async ({ lang }: GetListOfAudiosProps = {}): Promise<
   AudioBook[]
 > => {
-  const url = getAudioListUrl({ lang: lang || "en", devMode });
+  const url = getAudioListUrl({ lang: lang || "en" });
 
   try {
     let response = await fetch(url);
