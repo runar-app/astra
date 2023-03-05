@@ -2,6 +2,7 @@ import * as React from "react";
 import { StyleSheet, StatusBar } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { WebView } from "react-native-webview";
+import { UIMessage } from "../../data/messages";
 
 const vikingUrl = "https://viking-ai.vercel.app/";
 
@@ -24,7 +25,13 @@ const AssistantStack = createNativeStackNavigator();
 export function AssistantStackScreen() {
   return (
     <AssistantStack.Navigator>
-      <AssistantStack.Screen name="Viking Assistant" component={AssistantScreen} />
+      <AssistantStack.Screen
+        name="Viking Assistant"
+        options={{
+          title: UIMessage.assistantPageTitle,
+        }}
+        component={AssistantScreen}
+      />
     </AssistantStack.Navigator>
   );
 }

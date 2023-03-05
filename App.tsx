@@ -11,6 +11,7 @@ import { AssistantStackScreen } from "./views/Assistant";
 import { LibraryStackScreen } from "./views/Library";
 import AudioIcon from "./icons/AudioIcon";
 import { FlatList, ImageBackground, StyleSheet, View } from "react-native";
+import { UIMessage } from "./data/messages";
 
 const Tab = createBottomTabNavigator();
 
@@ -22,7 +23,7 @@ export default function App() {
           name="Assistant Section"
           component={AssistantStackScreen}
           options={{
-            tabBarLabel: "Assistant",
+            tabBarLabel: UIMessage.assistantMainMenuTitle,
             tabBarIcon: ({ color, size }) => <HomeIcon color={color} />,
           }}
         />
@@ -31,7 +32,7 @@ export default function App() {
           name="Library Section"
           component={LibraryStackScreen}
           options={{
-            tabBarLabel: "Library",
+            tabBarLabel: UIMessage.libraryMainMenuTitle,
             tabBarIcon: ({ color, size }) => <LibraryIcon color={color} />,
           }}
         />
@@ -40,7 +41,7 @@ export default function App() {
           name="Menu Section"
           component={MenuStackScreen}
           options={{
-            tabBarLabel: "Menu",
+            tabBarLabel: UIMessage.menuPageTitle,
             tabBarIcon: ({ color, size }) => <MenuIcon color={color} />,
           }}
         />

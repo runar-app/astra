@@ -6,6 +6,7 @@ import { getLibraryNodes } from "../../services/library";
 import { SmallLoaderPage } from "../../components/Loader/SmallLoaderPage";
 import { LibraryListElement } from "../../components/LibraryListElement/LibraryListElement";
 import { Background } from "../../components/Background/Background";
+import { UIMessage } from "../../data/messages";
 
 interface LibraryNavigationProps {
   id?: string;
@@ -67,14 +68,19 @@ const LibraryStack = createNativeStackNavigator();
 export function LibraryStackScreen() {
   return (
     <LibraryStack.Navigator>
-      <LibraryStack.Screen name="Library" component={LibraryDetails} />
+      <LibraryStack.Screen
+        name="Library"
+        options={{
+          title: UIMessage.libraryPageTitle,
+        }}
+        component={LibraryDetails}
+      />
       <LibraryStack.Screen
         name="LibraryDetails"
         component={LibraryDetails}
-        options={({ route, navigation }) => {
+        options={({ route }) => {
           const pageProps = (route?.params as LibraryNavigationProps) || {};
-          console.log(`pageTitle`, pageProps.pageLabel);
-          const pageLabel = pageProps.pageLabel || "Library";
+          const pageLabel = pageProps.pageLabel || UIMessage.libraryPageTitle;
 
           return {
             title: pageLabel,

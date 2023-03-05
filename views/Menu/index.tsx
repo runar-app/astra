@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Background } from "../../components/Background/Background";
 import { MenuScreen } from "./Menu";
+import { UIMessage } from "../../data/messages";
 
 const styles = StyleSheet.create({
   aboutText: {
@@ -54,7 +55,13 @@ const MenuStack = createNativeStackNavigator();
 export function MenuStackScreen() {
   return (
     <MenuStack.Navigator>
-      <MenuStack.Screen name="Menu" component={MenuScreen} />
+      <MenuStack.Screen
+        name="Menu"
+        options={{
+          title: UIMessage.menuPageTitle,
+        }}
+        component={MenuScreen}
+      />
       <MenuStack.Screen name="Settings" component={SettingsScreen} />
       <MenuStack.Screen name="Favorite" component={FavoriteScreen} />
       <MenuStack.Screen name="About" component={AboutScreen} />
