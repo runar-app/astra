@@ -2,18 +2,23 @@ import { DarkTheme } from "@react-navigation/native";
 
 const FontSizesGradation = {
   base: 14,
+  small: 11,
 };
 
 export const FontSizes = {
   baseText: FontSizesGradation.base,
+  smallText: FontSizesGradation.small,
 };
 
 const ColorPalette = {
   primary: "#EFCD93",
+  mainTextContent: "#ffffff",
+  subTextContent: "#cccccc",
 };
 
 export const Colors = {
-  baseTextColor: "#ffffff",
+  baseTextColor: ColorPalette.mainTextContent,
+  smallTextColor: ColorPalette.subTextContent,
   loadingText: ColorPalette.primary,
 };
 
