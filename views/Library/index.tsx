@@ -15,7 +15,7 @@ const LibraryStack = createNativeStackNavigator();
 export function LibraryStackScreen() {
   return (
     <LibraryStack.Navigator>
-      <LibraryStack.Screen name="LibraryMain" component={LibraryScreen} />
+      <LibraryStack.Screen name="Library" component={LibraryScreen} />
     </LibraryStack.Navigator>
   );
 }

@@ -38,7 +38,7 @@ export default function App() {
           name="Library Section"
           component={LibraryStackScreen}
           options={{
-            tabBarLabel: "Library page",
+            tabBarLabel: "Library",
             tabBarIcon: ({ color, size }) => <LibraryIcon color={color} />,
           }}
         />
