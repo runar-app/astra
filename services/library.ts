@@ -7,9 +7,16 @@ interface GetRootLibraryNodesProps {
   id?: string;
 }
 
+const cache: Record<string, LibraryNode[]> = {};
+
 export const getLibraryNodes = async ({ lang, id }: GetRootLibraryNodesProps = {}): Promise<
   LibraryNode[]
 > => {
+  const cacheKey = `${lang || "en"}${id || "root"}`;
+  if (cache[cacheKey]) {
+    return cache[cacheKey];
+  }
+
   const url = getLibraryUrl({ lang: lang || "en", id });
 
   try {
@@ -17,6 +24,7 @@ export const getLibraryNodes = async ({ lang, id }: GetRootLibraryNodesProps = {
 
     let responseJson = (await response.json()) as LibraryNode[];
     if (Array.isArray(responseJson)) {
+      cache[cacheKey] = responseJson;
       return responseJson;
     }
     return [];

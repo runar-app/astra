@@ -6,9 +6,15 @@ interface GetListOfAudiosProps {
   lang?: SupportedLanguage;
 }
 
+const cache: Record<string, AudioBook[]> = {};
 export const getListOfAudios = async ({ lang }: GetListOfAudiosProps = {}): Promise<
   AudioBook[]
 > => {
+  const cacheKey = `${lang || "en"}${"root"}`;
+  if (cache[cacheKey]) {
+    return cache[cacheKey];
+  }
+
   const url = getAudioListUrl({ lang: lang || "en" });
 
   try {
@@ -16,6 +22,7 @@ export const getListOfAudios = async ({ lang }: GetListOfAudiosProps = {}): Prom
 
     let responseJson = (await response.json()) as AudioBook[];
     if (Array.isArray(responseJson)) {
+      cache[cacheKey] = responseJson;
       return responseJson;
     }
     return [];
