@@ -16,7 +16,7 @@ const en: UIMessages = {
   libraryPageTitle: "Библиотека",
   libraryMainMenuTitle: "Библиотека",
 
-  assistantPageTitle: "Викинг Ассистент",
+  assistantPageTitle: "Викинг",
   assistantMainMenuTitle: "Ассистент",
 
   menuPageTitle: "Меню",
@@ -27,7 +27,7 @@ const ru: UIMessages = {
   libraryPageTitle: "Библиотека",
   libraryMainMenuTitle: "Библиотека",
 
-  assistantPageTitle: "Ассистент",
+  assistantPageTitle: "Викинг",
   assistantMainMenuTitle: "Ассистент",
 
   menuPageTitle: "Меню",
