@@ -2,8 +2,7 @@
   "expo": {
     "name": "runar-astra",
     "slug": "runar-astra",
-    "version": "4",
-    "versionCode": 4,
+    "version": "5",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
@@ -30,6 +29,7 @@
       "backgroundColor": "#000000"
     },
     "android": {
+      "versionCode": 5,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#222222"
