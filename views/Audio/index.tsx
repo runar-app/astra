@@ -5,6 +5,7 @@ import { AudioBook } from "../../types/Audio";
 import { getListOfAudios } from "../../services/audios";
 import { SmallLoaderPage } from "../../components/Loader/SmallLoaderPage";
 import { AudioListElement } from "../../components/AudioListElement/AudioListElement";
+import { Background } from "../../components/Background/Background";
 
 function AudioScreen() {
   const [audios, setAudios] = React.useState<AudioBook[]>([]);
@@ -32,12 +33,14 @@ function AudioScreen() {
         alignItems: "center",
       }}
     >
-      <FlatList
-        data={audios}
-        renderItem={({ item }) => <AudioListElement audioData={item} />}
-        keyExtractor={(item) => item._id}
-        style={{ width: "100%" }}
-      />
+      <Background>
+        <FlatList
+          data={audios}
+          renderItem={({ item }) => <AudioListElement audioData={item} />}
+          keyExtractor={(item) => item._id}
+          style={{ width: "100%" }}
+        />
+      </Background>
     </View>
   );
 }
