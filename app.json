@@ -2,7 +2,8 @@
   "expo": {
     "name": "runar-astra",
     "slug": "runar-astra",
-    "version": "3",
+    "version": "4",
+    "versionCode": "4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
