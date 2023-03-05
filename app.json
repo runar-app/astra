@@ -19,7 +19,10 @@
       "supportsTablet": true,
       "backgroundColor": "#222222",
       "userInterfaceStyle": "dark",
-      "bundleIdentifier": "com.tnco.astra"
+      "bundleIdentifier": "com.tnco.astra",
+      "infoPlist": {
+        "UIBackgroundModes": ["audio"]
+      }
     },
     "androidStatusBar": {
       "backgroundColor": "#000000",

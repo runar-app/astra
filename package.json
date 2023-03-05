@@ -1,7 +1,7 @@
 {
   "name": "runar-astra",
   "version": "0.0.6",
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "index.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
