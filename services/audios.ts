@@ -1,6 +1,6 @@
 import { getAudioListUrl } from "../data/url";
-import { AudioBook } from "../types/audios";
-import { SupportedLanguage } from "../types/lang";
+import { AudioBook } from "../types/Audio";
+import { SupportedLanguage } from "../types/Lang2";
 
 interface GetListOfAudiosProps {
   lang?: SupportedLanguage;

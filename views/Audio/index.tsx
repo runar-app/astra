@@ -1,7 +1,7 @@
 import * as React from "react";
 import { FlatList, Text, View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { AudioBook } from "../../types/audios";
+import { AudioBook } from "../../types/Audio";
 import { getListOfAudios } from "../../services/audios";
 import { SmallLoaderPage } from "../../components/Loader/SmallLoaderPage";
 import { AudioListElement } from "../../components/AudioListElement/AudioListElement";

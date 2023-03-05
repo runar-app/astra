@@ -1,4 +1,4 @@
-import { SupportedLanguage } from "../types/lang";
+import { SupportedLanguage } from "../types/Lang2";
 
 const LOCALHOST_DEBUG = false;
 

@@ -2,7 +2,7 @@ import { Text, View, StyleSheet } from "react-native";
 import { Colors, FontSizes } from "../../commonStyle";
 import React from "react";
 import { BaseText } from "../Typography/BaseText";
-import { AudioBook } from "../../types/audios";
+import { AudioBook } from "../../types/Audio";
 
 interface AudioListElementProps {
   audioData: AudioBook;
