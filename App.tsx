@@ -2,14 +2,14 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MenuStackScreen } from "./views/Menu";
-import { LibraryStackScreen } from "./views/Library";
-import { GeneratorStackScreen } from "./views/Generator";
+import { AudioStackScreen } from "./views/Audio";
 import HomeIcon from "./icons/HomeIcon";
 import LibraryIcon from "./icons/LibraryIcon";
 import { RunarTheme } from "./commonStyle";
-import GridIcon from "./icons/GridIcon";
 import MenuIcon from "./icons/MenuIcon";
 import { AssistantStackScreen } from "./views/Assistant";
+import { LibraryStackScreen } from "./views/Library";
+import AudioIcon from "./icons/AudioIcon";
 
 const Tab = createBottomTabNavigator();
 
@@ -26,6 +26,15 @@ export default function App() {
           }}
         />
         <Tab.Screen
+          name="Audio Section"
+          component={AudioStackScreen}
+          options={{
+            tabBarLabel: "Audio",
+            tabBarIcon: ({ color, size }) => <AudioIcon color={color} />,
+          }}
+        />
+
+        <Tab.Screen
           name="Library Section"
           component={LibraryStackScreen}
           options={{
@@ -33,14 +42,7 @@ export default function App() {
             tabBarIcon: ({ color, size }) => <LibraryIcon color={color} />,
           }}
         />
-        <Tab.Screen
-          name="Generator Section"
-          component={GeneratorStackScreen}
-          options={{
-            tabBarLabel: "Generator",
-            tabBarIcon: ({ color, size }) => <GridIcon color={color} />,
-          }}
-        />
+
         <Tab.Screen
           name="Menu Section"
           component={MenuStackScreen}
