@@ -31,7 +31,7 @@ export function MenuScreen({ navigation }: any) {
   return (
     <Background>
       <View style={styles.mainContainer}>
-        <Image style={styles.image} source={require("../../assets/illusttrations/boat.png")} />
+        <Image style={styles.image} source={require("../../assets/illustrations/boat.png")} />
         <View style={styles.menuContainer}>
           <MenuButton title="Settings" onPress={() => navigation.navigate("Settings")} />
           <MenuButton title="Favorite" onPress={() => navigation.navigate("Favorite")} />
