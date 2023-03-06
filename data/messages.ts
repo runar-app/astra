@@ -10,6 +10,9 @@ interface UIMessages {
 
   menuPageTitle: string;
   menuMainMenuTitle: string;
+
+  audioPageTitle: string;
+  audioMainMenuTitle: string;
 }
 
 const en: UIMessages = {
@@ -21,6 +24,9 @@ const en: UIMessages = {
 
   menuPageTitle: "Меню",
   menuMainMenuTitle: "Меню",
+
+  audioPageTitle: "Аудио",
+  audioMainMenuTitle: "Аудио",
 };
 
 const ru: UIMessages = {
@@ -32,6 +38,9 @@ const ru: UIMessages = {
 
   menuPageTitle: "Меню",
   menuMainMenuTitle: "Меню",
+
+  audioPageTitle: "Аудио",
+  audioMainMenuTitle: "Аудио",
 };
 
 const messages: Record<SupportedLanguage, UIMessages> = {
