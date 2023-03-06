@@ -1,6 +1,10 @@
 import { MongoClient } from "mongodb";
 
 const uri = process.env.MONGO_URL;
+if (!uri) {
+  throw new Error("Please add your Mongo URI to .env");
+}
+
 const options = {};
 
 let client: MongoClient;
@@ -13,11 +17,12 @@ if (!process.env.MONGO_URL) {
 if (process.env.NODE_ENV === "development") {
   // In development mode, use a global variable so that the value
   // is preserved across module reloads caused by HMR (Hot Module Replacement).
-  if (!global._mongoClientPromise) {
+  const selfGlobal = global as any;
+  if (!selfGlobal._mongoClientPromise) {
     client = new MongoClient(uri, options);
-    global._mongoClientPromise = client.connect();
+    selfGlobal._mongoClientPromise = client.connect();
   }
-  clientPromise = global._mongoClientPromise;
+  clientPromise = selfGlobal._mongoClientPromise as Promise<MongoClient>;
 } else {
   // In production mode, it's best to not use a global variable.
   client = new MongoClient(uri, options);
