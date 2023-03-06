@@ -15,7 +15,7 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "buildNumber": "7",
+      "buildNumber": "8",
       "supportsTablet": true,
       "backgroundColor": "#222222",
       "userInterfaceStyle": "dark",
@@ -25,15 +25,15 @@
       }
     },
     "androidStatusBar": {
-      "backgroundColor": "#000000",
+      "backgroundColor": "#222222",
       "hidden": true
     },
     "androidNavigationBar": {
       "barStyle": "dark-content",
-      "backgroundColor": "#000000"
+      "backgroundColor": "#222222"
     },
     "android": {
-      "versionCode": 7,
+      "versionCode": 8,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#222222"
