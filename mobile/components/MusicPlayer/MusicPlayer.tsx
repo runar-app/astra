@@ -16,7 +16,11 @@ import { AudioBook } from "../../../common/AudioBook";
 import { getListOfAudios } from "../../services/audios";
 import { SmallLoaderPage } from "../Loader/SmallLoaderPage";
 
-function MusicPlayer() {
+interface MusicPlayerProps {
+  audios: AudioBook[];
+}
+
+function MusicPlayer({ audios }: MusicPlayerProps) {
   const [trackIndex, setTrackIndex] = useState(0);
   const [trackTitle, setTrackTitle] = useState("");
   const [trackArtist, setTrackArtist] = useState("");
@@ -26,50 +30,47 @@ function MusicPlayer() {
   const playBackState = usePlaybackState();
   const isPlating = playBackState === State.Playing;
 
-  const [audios, setAudios] = React.useState<AudioBook[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
+  const audiosDataForPlayer = audios.map((audio) => {
+    return {
+      id: audio._id,
+      url: audio.audioUrl,
+      title: audio.title || "Audio Book",
+      artist: audio.category || "Runar",
+      artwork: audio.coverImgUrl || "",
+    };
+  });
 
   useEffect(() => {
     setLoading(true);
     (async () => {
-      const audios = await getListOfAudios({ lang: "ru" });
-
-      const audiosDataForPlayer = audios.map((audio) => {
-        return {
-          id: audio._id,
-          url: audio.audioUrl,
-          title: audio.title || "Audio Book",
-          artist: audio.category || "Runar",
-          artwork: audio.coverImgUrl || "",
-        };
-      });
-
       try {
         await TrackPlayer.setupPlayer();
+        await TrackPlayer.updateOptions({
+          capabilities: [
+            Capability.Play,
+            Capability.Pause,
+            Capability.SkipToNext,
+            Capability.SeekTo,
+            Capability.Stop,
+            Capability.SkipToPrevious,
+          ],
+        });
+        await TrackPlayer.add(audiosDataForPlayer);
       } catch (error) {
         console.log("!!! Error - setupPlayer");
         console.log(error);
       }
 
       try {
-        await TrackPlayer.updateOptions({
-          capabilities: [
-            Capability.Play,
-            Capability.Pause,
-            Capability.SkipToNext,
-            Capability.SkipToPrevious,
-          ],
-        });
-        await TrackPlayer.add(audiosDataForPlayer);
         await syncTrackData();
       } catch (error) {
         console.log("!!! Error - add");
       }
 
-      setAudios(audios);
       setLoading(false);
     })();
-  }, []);
+  }, [audios]);
 
   useTrackPlayerEvents([Event.PlaybackTrackChanged], async (event) => {
     if (event.type === Event.PlaybackTrackChanged && event.nextTrack !== null) {
