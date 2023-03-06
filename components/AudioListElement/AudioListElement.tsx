@@ -1,5 +1,4 @@
-import { Text, View, StyleSheet } from "react-native";
-import { Colors, FontSizes } from "../../commonStyle";
+import { View, StyleSheet, TouchableHighlight } from "react-native";
 import React from "react";
 import { BaseText } from "../Typography/BaseText";
 import { AudioBook } from "../../types/Audio";
@@ -7,13 +6,16 @@ import { AudioBook } from "../../types/Audio";
 interface AudioListElementProps {
   audioData: AudioBook;
   color?: string;
+  onPress?: () => void;
 }
 
-export const AudioListElement = ({ audioData }: AudioListElementProps) => {
+export const AudioListElement = ({ audioData, onPress }: AudioListElementProps) => {
   return (
-    <View style={styles.listItem}>
-      <BaseText>{audioData.title}</BaseText>
-    </View>
+    <TouchableHighlight onPress={onPress} underlayColor="rgba(0,0,0,0.3)">
+      <View style={styles.listItem}>
+        <BaseText>{audioData.title}</BaseText>
+      </View>
+    </TouchableHighlight>
   );
 };
 

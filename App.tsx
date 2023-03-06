@@ -29,6 +29,15 @@ export default function App() {
         />
 
         <Tab.Screen
+          name="Audio Section"
+          component={AudioStackScreen}
+          options={{
+            tabBarLabel: UIMessage.audioMainMenuTitle,
+            tabBarIcon: ({ color, size }) => <AudioIcon color={color} />,
+          }}
+        />
+
+        <Tab.Screen
           name="Library Section"
           component={LibraryStackScreen}
           options={{
@@ -49,14 +58,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-/*
-<Tab.Screen
-          name="Audio Section"
-          component={AudioStackScreen}
-          options={{
-            tabBarLabel: "Audio",
-            tabBarIcon: ({ color, size }) => <AudioIcon color={color} />,
-          }}
-        />
-*/

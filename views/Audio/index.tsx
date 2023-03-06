@@ -6,8 +6,10 @@ import { getListOfAudios } from "../../services/audios";
 import { SmallLoaderPage } from "../../components/Loader/SmallLoaderPage";
 import { AudioListElement } from "../../components/AudioListElement/AudioListElement";
 import { Background } from "../../components/Background/Background";
+import { UIMessage } from "../../data/messages";
+import MusicPlayer from "../../components/MusicPlayer/MusicPlayer";
 
-function AudioScreen() {
+function AudioScreen({ navigation }: any) {
   const [audios, setAudios] = React.useState<AudioBook[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
 
@@ -36,7 +38,12 @@ function AudioScreen() {
       <Background>
         <FlatList
           data={audios}
-          renderItem={({ item }) => <AudioListElement audioData={item} />}
+          renderItem={({ item }) => {
+            const onPressHandler = () => {
+              navigation.push("AudioDetail");
+            };
+            return <AudioListElement audioData={item} onPress={onPressHandler} />;
+          }}
           keyExtractor={(item) => item._id}
           style={{ width: "100%" }}
         />
@@ -50,7 +57,15 @@ const AudioStack = createNativeStackNavigator();
 export function AudioStackScreen() {
   return (
     <AudioStack.Navigator>
-      <AudioStack.Screen name="Audio" component={AudioScreen} />
+      <AudioStack.Screen
+        name="Audio"
+        options={{
+          title: UIMessage.audioPageTitle,
+        }}
+        component={AudioScreen}
+      />
+
+      <AudioStack.Screen name="AudioDetail" component={MusicPlayer} />
     </AudioStack.Navigator>
   );
 }
