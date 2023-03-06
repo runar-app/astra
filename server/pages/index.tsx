@@ -2,7 +2,6 @@ import { useState, useRef, useEffect, KeyboardEventHandler } from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
-import ReactMarkdown from "react-markdown";
 import { SendButton } from "../components/SendButton";
 
 export default function Home() {
@@ -147,9 +146,7 @@ export default function Home() {
                       priority={true}
                     />
                   )}
-                  <div className={styles.markdownanswer}>
-                    <ReactMarkdown linkTarget={"_blank"}>{message.message}</ReactMarkdown>
-                  </div>
+                  <div className={styles.markdownanswer}>{message.message}</div>
                 </div>
               );
             })}
