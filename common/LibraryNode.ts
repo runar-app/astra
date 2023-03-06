@@ -1,4 +1,5 @@
 export interface LibraryNode {
+  _id: string;
   childIds: string[];
   imageUrl: string;
   linkUrl: string;

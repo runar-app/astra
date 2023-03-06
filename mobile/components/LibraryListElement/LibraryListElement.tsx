@@ -1,7 +1,7 @@
 import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
 import React from "react";
 import { BaseText } from "../Typography/BaseText";
-import { LibraryNode } from "../../types/Library";
+import { LibraryNode } from "../../../common/LibraryNode";
 import { SmallText } from "../Typography/SmallText";
 
 interface LibraryListElementProps {

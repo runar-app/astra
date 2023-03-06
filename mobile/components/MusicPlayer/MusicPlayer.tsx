@@ -12,7 +12,7 @@ import Slider from "@react-native-community/slider";
 import { Background } from "../Background/Background";
 import AudioControlButton from "../Button/AudioControlButton";
 import { BaseText } from "../Typography/BaseText";
-import { AudioBook } from "../../types/Audio";
+import { AudioBook } from "../../../common/AudioBook";
 import { getListOfAudios } from "../../services/audios";
 import { SmallLoaderPage } from "../Loader/SmallLoaderPage";
 
@@ -38,11 +38,9 @@ function MusicPlayer() {
         return {
           id: audio._id,
           url: audio.audioUrl,
-          title: audio.title || "Title",
-          artist: audio.title || "Artist",
-          artwork:
-            audio.audioImg ||
-            "https://s3.eu-west-2.amazonaws.com/lineform/rnnr_1632491704338_218_(skazki).png",
+          title: audio.title || "Audio Book",
+          artist: audio.category || "Runar",
+          artwork: audio.coverImgUrl || "",
         };
       });
 

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { FlatList, Text, View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { AudioBook } from "../../types/Audio";
+import { AudioBook } from "../../../common/AudioBook";
 import { getListOfAudios } from "../../services/audios";
 import { SmallLoaderPage } from "../../components/Loader/SmallLoaderPage";
 import { AudioListElement } from "../../components/AudioListElement/AudioListElement";
@@ -17,6 +17,8 @@ function AudioScreen({ navigation }: any) {
     setLoading(true);
     (async () => {
       const audios = await getListOfAudios({ lang: "ru" });
+      console.log("audios", audios);
+
       setAudios(audios);
       setLoading(false);
     })();

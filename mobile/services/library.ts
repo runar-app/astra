@@ -1,7 +1,7 @@
 import { currentLanguage } from "../data/lang";
 import { getLibraryUrl } from "../data/url";
 import { SupportedLanguage } from "../types/Lang";
-import { LibraryNode } from "../types/Library";
+import { LibraryNode } from "../../common/LibraryNode";
 
 interface GetRootLibraryNodesProps {
   lang?: SupportedLanguage;
@@ -10,6 +10,11 @@ interface GetRootLibraryNodesProps {
 
 const cache: Record<string, LibraryNode[]> = {};
 
+/*
+https://runar-java-back.herokuapp.com/api/v2/
+
+https://runar-java-back.herokuapp.com/api/v2/6063944687bafbb125aefdeb
+*/
 export const getLibraryNodes = async ({ lang, id }: GetRootLibraryNodesProps = {}): Promise<
   LibraryNode[]
 > => {

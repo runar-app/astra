@@ -1,12 +1,17 @@
 import { currentLanguage } from "../data/lang";
 import { getAudioListUrl } from "../data/url";
-import { AudioBook } from "../types/Audio";
+import { AudioBook } from "../../common/AudioBook";
 import { SupportedLanguage } from "../types/Lang";
 
 interface GetListOfAudiosProps {
   lang?: SupportedLanguage;
 }
 
+/*
+https://runar-viking.vercel.app/api/v3/audios?lang=ru
+
+https://runar-viking.vercel.app/api/v3/audios?lang=en
+*/
 const cache: Record<string, AudioBook[]> = {};
 export const getListOfAudios = async ({ lang }: GetListOfAudiosProps = {}): Promise<
   AudioBook[]
