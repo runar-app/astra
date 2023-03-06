@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FlatList, ImageBackground, StyleSheet, View } from "react-native";
+import { FlatList, View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { LibraryNode } from "../../types/Library";
 import { getLibraryNodes } from "../../services/library";
@@ -22,7 +22,7 @@ function LibraryDetails({ navigation, route }: any) {
   React.useEffect(() => {
     setLoading(true);
     (async () => {
-      const nodes = await getLibraryNodes({ lang: "ru", id });
+      const nodes = await getLibraryNodes({ id });
       setNodes(nodes);
       setLoading(false);
     })();

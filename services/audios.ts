@@ -1,3 +1,4 @@
+import { currentLanguage } from "../data/lang";
 import { getAudioListUrl } from "../data/url";
 import { AudioBook } from "../types/Audio";
 import { SupportedLanguage } from "../types/Lang";
@@ -10,12 +11,12 @@ const cache: Record<string, AudioBook[]> = {};
 export const getListOfAudios = async ({ lang }: GetListOfAudiosProps = {}): Promise<
   AudioBook[]
 > => {
-  const cacheKey = `${lang || "en"}${"root"}`;
+  const cacheKey = `${lang || currentLanguage}${"root"}`;
   if (cache[cacheKey]) {
     return cache[cacheKey];
   }
 
-  const url = getAudioListUrl({ lang: lang || "en" });
+  const url = getAudioListUrl({ lang: lang || currentLanguage });
 
   try {
     let response = await fetch(url);
