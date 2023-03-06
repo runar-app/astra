@@ -3,8 +3,7 @@ import { StyleSheet, StatusBar } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { WebView } from "react-native-webview";
 import { UIMessage } from "../../data/messages";
-
-const vikingUrl = "https://viking-ai.vercel.app/";
+import { vikingAssistantUrl } from "../../data/url";
 
 const styles = StyleSheet.create({
   webView: {
@@ -17,7 +16,7 @@ const styles = StyleSheet.create({
 });
 
 function AssistantScreen() {
-  return <WebView textZoom={100} source={{ uri: vikingUrl }} style={styles.webView} />;
+  return <WebView textZoom={100} source={{ uri: vikingAssistantUrl }} style={styles.webView} />;
 }
 
 const AssistantStack = createNativeStackNavigator();

@@ -6,8 +6,10 @@ interface GetUrlProps {
   lang?: SupportedLanguage;
 }
 
+export const vikingAssistantUrl = "https://runar-viking.vercel.app/";
+
 export const getAudioListUrl = ({ lang }: GetUrlProps): string => {
-  const baseUrl = LOCALHOST_DEBUG ? "http://localhost:3000/" : "https://astra-backend.vercel.app/";
+  const baseUrl = LOCALHOST_DEBUG ? "http://localhost:3000/" : "https://runar-viking.vercel.app/";
   const fullUrl = `${baseUrl}api/v3/audios?lang=${lang}`;
   return fullUrl;
 };
