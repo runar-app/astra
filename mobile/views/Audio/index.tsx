@@ -17,8 +17,6 @@ function AudioScreen({ navigation }: any) {
     setLoading(true);
     (async () => {
       const audios = await getListOfAudios({ lang: "ru" });
-      console.log("audios", audios);
-
       setAudios(audios);
       setLoading(false);
     })();
@@ -27,6 +25,14 @@ function AudioScreen({ navigation }: any) {
   if (loading) {
     return <SmallLoaderPage loadingTextMessage="Loading data..." />;
   }
+
+  const categoriesAudios = audios.reduce((acc, audio) => {
+    if (!acc[audio.category]) {
+      acc[audio.category] = [];
+    }
+    acc[audio.category].push(audio);
+    return acc;
+  }, {} as { [key: string]: AudioBook[] });
 
   return (
     <View
