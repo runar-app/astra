@@ -7,6 +7,7 @@ import { SmallLoaderPage } from "../../components/Loader/SmallLoaderPage";
 import { LibraryListElement } from "../../components/LibraryListElement/LibraryListElement";
 import { Background } from "../../components/Background/Background";
 import { UIMessage } from "../../data/messages";
+import NetInfo from "@react-native-community/netinfo";
 
 interface LibraryNavigationProps {
   id?: string;
@@ -17,16 +18,34 @@ function LibraryDetails({ navigation, route }: any) {
   const id = route?.params?.id || "";
 
   const [nodes, setNodes] = React.useState<LibraryNode[]>([]);
+  const [isOnline, setIsOnline] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsOnline(!!state.isConnected);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  React.useEffect(() => {
+    if (!isOnline) {
+      return;
+    }
     setLoading(true);
     (async () => {
       const nodes = await getLibraryNodes({ id });
       setNodes(nodes);
       setLoading(false);
     })();
-  }, [id]);
+  }, [isOnline]);
+
+  if (!isOnline) {
+    return <SmallLoaderPage loadingTextMessage="Waiting for internet connection..." />;
+  }
 
   if (loading) {
     return <SmallLoaderPage loadingTextMessage="Loading data..." />;
