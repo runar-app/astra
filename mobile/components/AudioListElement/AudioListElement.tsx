@@ -1,7 +1,7 @@
 import { View, StyleSheet, TouchableHighlight } from "react-native";
 import React from "react";
 import { BaseText } from "../Typography/BaseText";
-import { AudioBook } from "../../types/Audio";
+import { AudioBook } from "../../../common/AudioBook";
 
 interface AudioListElementProps {
   audioData: AudioBook;
