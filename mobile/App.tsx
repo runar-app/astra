@@ -18,13 +18,29 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   React.useEffect(() => {
-    console.log("App.tsx Init");
-    async () => {
-      console.log("Before Player init");
-      await TrackPlayer.setupPlayer();
-      console.log("After Player init");
+    console.log("Init App");
+    (async () => {
+      console.log("Init: Before Player init");
+      try {
+        await TrackPlayer.setupPlayer();
+      } catch (e) {
+        console.log("Init: Error in TrackPlayer setupPlayer: ", e);
+      }
+      console.log("Init: After Player init");
+    })();
+
+    return () => {
+      console.log("Reset: Before");
+
+      try {
+        TrackPlayer.reset();
+      } catch (e) {
+        console.log("Error in TrackPlayer.reset: ", e);
+      }
+      console.log("Reset: After");
     };
   }, []);
+
   return (
     <NavigationContainer theme={RunarTheme}>
       <Tab.Navigator screenOptions={{ headerShown: false }}>
