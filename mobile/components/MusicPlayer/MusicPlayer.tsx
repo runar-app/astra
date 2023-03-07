@@ -147,7 +147,7 @@ function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
 
         <View style={styles.playControlContainer}>
           <AudioControlButton
-            icon={<AudioPrevIcon color={Colors.audioControlButtonColor} />}
+            icon={<AudioPrevIcon color={Colors.audioControlButtonColor} size={30} />}
             onPress={async () => {
               await previousTrack();
             }}
@@ -156,9 +156,9 @@ function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
           <AudioControlButton
             icon={
               isPlay ? (
-                <AudioPauseIcon color={Colors.audioControlButtonColor} />
+                <AudioPauseIcon color={Colors.audioControlButtonColor} size={70} />
               ) : (
-                <AudioPlayIcon color={Colors.audioControlButtonColor} />
+                <AudioPlayIcon color={Colors.audioControlButtonColor} size={70} />
               )
             }
             onPress={async () => {
@@ -166,7 +166,7 @@ function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
             }}
           />
           <AudioControlButton
-            icon={<AudioNextIcon color={Colors.audioControlButtonColor} />}
+            icon={<AudioNextIcon color={Colors.audioControlButtonColor} size={30} />}
             color="next"
             onPress={async () => {
               await nextTrack();
@@ -244,12 +244,12 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
     height: "100%",
-    paddingTop: "10%",
-    paddingBottom: "20%",
-    gap: 0,
+    paddingTop: 0,
+    paddingBottom: 0,
+    gap: 20,
     flexDirection: "column",
   },
   coverContainer: {
@@ -275,6 +275,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    gap: 20,
+    gap: 30,
   },
 });
