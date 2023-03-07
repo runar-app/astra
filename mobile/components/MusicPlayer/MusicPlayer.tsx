@@ -14,6 +14,11 @@ import AudioControlButton from "../Button/AudioControlButton";
 import { BaseText } from "../Typography/BaseText";
 import { AudioBook } from "../../../common/AudioBook";
 import { SmallLoaderPage } from "../Loader/SmallLoaderPage";
+import { Colors } from "../../commonStyle";
+import AudioPlayIcon from "../../icons/AudioPlayIcon";
+import AudioPauseIcon from "../../icons/AudioPauseIcon";
+import AudioNextIcon from "../../icons/AudioNextIcon";
+import AudioPrevIcon from "../../icons/AudioPrevIcon";
 
 interface MusicPlayerProps {
   audios: AudioBook[];
@@ -28,7 +33,7 @@ function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
 
   const progress = useProgress();
   const playBackState = usePlaybackState();
-  const isPlating = playBackState === State.Playing;
+  const isPlay = playBackState === State.Playing;
 
   const [loading, setLoading] = React.useState<boolean>(true);
   const audiosDataForPlayer = audios.map((audio) => {
@@ -151,20 +156,27 @@ function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
 
         <View style={styles.playControlContainer}>
           <AudioControlButton
-            text="prev"
+            icon={<AudioPrevIcon color={Colors.audioControlButtonColor} />}
             onPress={async () => {
               await previousTrack();
             }}
           />
 
           <AudioControlButton
-            text={isPlating ? "Pause" : "Play"}
+            icon={
+              isPlay ? (
+                <AudioPauseIcon color={Colors.audioControlButtonColor} />
+              ) : (
+                <AudioPlayIcon color={Colors.audioControlButtonColor} />
+              )
+            }
             onPress={async () => {
               await togglePlayBack(playBackState);
             }}
           />
           <AudioControlButton
-            text="next"
+            icon={<AudioNextIcon color={Colors.audioControlButtonColor} />}
+            color="next"
             onPress={async () => {
               await nextTrack();
             }}
@@ -218,7 +230,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    gap: 20,
+    gap: 30,
     flexDirection: "column",
   },
   coverContainer: {
@@ -228,18 +240,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "rgba(0,0,0,0.6)",
     borderRadius: 33,
-    width: 250,
-    height: 250,
+    width: 290,
+    height: 290,
+    borderWidth: 3,
+    borderColor: "rgba(0, 0, 0, 0.4)",
   },
   imageCover: {
     borderRadius: 30,
     width: "100%",
     height: "100%",
+    borderWidth: 2,
+    borderColor: "rgba(0, 0, 0, 0.1)",
   },
   playControlContainer: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    gap: 10,
+    gap: 20,
   },
 });

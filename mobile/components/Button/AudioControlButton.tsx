@@ -5,30 +5,30 @@ import RightArrowIcon from "../../icons/Arrow";
 
 interface AudioControlButtonProps {
   onPress: () => void;
-  text?: string;
+  color?: string;
+  icon: JSX.Element;
 }
 
 export default function AudioControlButton(props: AudioControlButtonProps) {
-  const { onPress, text = "Play" } = props;
+  const { onPress, icon } = props;
 
   return (
     <Pressable style={styles.button} onPress={onPress}>
-      <Text style={styles.text}>{text}</Text>
+      {icon}
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
-    justifyContent: "space-between",
-    alignItems: "center",
     flexDirection: "row",
-    padding: 10,
+    backgroundColor: "rgba(0, 0, 0, 0.1)",
+    height: 60,
+    width: 60,
+    justifyContent: "center",
+    alignItems: "center",
     elevation: 3,
-    backgroundColor: "rgba(255, 40, 40, 0.4)",
-    borderColor: "rgba(255, 255, 255, 0.2)",
-    borderWidth: 1,
-    textAlign: "left",
+    textAlign: "center",
     borderRadius: 30,
   },
   text: {

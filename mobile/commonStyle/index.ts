@@ -20,6 +20,7 @@ export const Colors = {
   baseTextColor: ColorPalette.mainTextContent,
   smallTextColor: ColorPalette.subTextContent,
   loadingText: ColorPalette.primary,
+  audioControlButtonColor: ColorPalette.primary,
   audioCoverListBorder: "rgba(255, 255, 255, 0.2)",
 };
 
