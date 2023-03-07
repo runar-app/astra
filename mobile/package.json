@@ -5,10 +5,11 @@
   "scripts": {
     "start": "expo start --dev-client",
     "android": "expo run:android --device",
+    "update-build": "node upgradeBuildNumber.js",
     "ios": "npx expo run:ios --device",
     "web": "expo start --web",
     "submit-ios": "eas submit --platform ios",
-    "build": "eas build",
+    "build": "npm run update-build && eas build",
     "submit": "eas submit"
   },
   "dependencies": {
