@@ -3,36 +3,40 @@ import React from "react";
 import { BaseText } from "../Typography/BaseText";
 import { LibraryNode } from "../../../common/LibraryNode";
 import { SmallText } from "../Typography/SmallText";
-import { RuneLibraryListElement } from "./RuneLibraryListElement";
+import { Colors } from "../../commonStyle";
 
 interface LibraryListElementProps {
   nodeData: LibraryNode;
-  color?: string;
   onPress?: () => void;
 }
 
-export const LibraryListElement = ({ nodeData, onPress }: LibraryListElementProps) => {
-  const type = nodeData.type;
-  const textNode = ["plainText", "poem", "rune"].includes(type);
-  const containerStyle = textNode ? styles.textMenuItem : styles.listMenuItem;
-
-  if (type === "rune") {
-    return <RuneLibraryListElement nodeData={nodeData} onPress={onPress} />;
-  }
+export const RuneLibraryListElement = ({ nodeData, onPress }: LibraryListElementProps) => {
+  const tags = nodeData.tags || [];
 
   return (
-    <TouchableHighlight onPress={onPress} underlayColor="rgba(0,0,0,0.3)">
-      <View style={containerStyle}>
+    <TouchableHighlight onPress={onPress}>
+      <View style={styles.textMenuItem}>
         {nodeData.imageUrl && (
           <Image
-            style={styles.rootImage}
+            style={styles.image}
             source={{
               uri: nodeData.imageUrl,
             }}
           />
         )}
-        <View style={styles.menuContent}>
+        <View style={styles.content}>
           <BaseText>{nodeData.title}</BaseText>
+
+          {tags.length > 0 && (
+            <View style={styles.tagsContainer}>
+              {tags.map((tag) => (
+                <View style={styles.tag}>
+                  <SmallText>{tag}</SmallText>
+                </View>
+              ))}
+            </View>
+          )}
+
           {nodeData.content && <SmallText>{nodeData.content}</SmallText>}
         </View>
       </View>
@@ -45,7 +49,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     gap: 10,
-    alignItems: "center",
     paddingTop: 15,
     paddingBottom: 15,
     paddingLeft: 15,
@@ -56,23 +59,42 @@ const styles = StyleSheet.create({
   },
   textMenuItem: {
     display: "flex",
-    flexDirection: "column",
-    gap: 4,
+    justifyContent: "center",
     alignItems: "center",
+    gap: 4,
     paddingTop: 0,
     paddingBottom: 5,
     paddingLeft: 0,
     paddingRight: 0,
     width: "100%",
   },
-  rootImage: {
-    width: 50,
-    height: 50,
+  image: {
+    width: 100,
+    height: 100,
+    marginTop: 22,
+    marginBottom: 22,
   },
-  menuContent: {
+
+  tag: {
+    backgroundColor: Colors.tagsBackground,
+    borderColor: Colors.tagsBorder,
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  content: {
     display: "flex",
     flexDirection: "column",
     width: "80%",
-    gap: 3,
+    gap: 22,
+    paddingBottom: 32,
+  },
+  tagsContainer: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 10,
   },
 });

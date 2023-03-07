@@ -22,6 +22,7 @@ export const Colors = {
   loadingText: ColorPalette.primary,
   audioControlButtonColor: ColorPalette.primary,
   audioCoverListBorder: "rgba(255, 255, 255, 0.2)",
+  tagsBorder: "#c2c2c2",
 };
 
 export const RunarTheme = {
