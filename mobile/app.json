@@ -13,7 +13,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#222222"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "buildNumber": "13",
       "supportsTablet": true,
@@ -21,7 +23,9 @@
       "userInterfaceStyle": "dark",
       "bundleIdentifier": "com.tnco.astra",
       "infoPlist": {
-        "UIBackgroundModes": ["audio"]
+        "UIBackgroundModes": [
+          "audio"
+        ]
       }
     },
     "androidStatusBar": {
