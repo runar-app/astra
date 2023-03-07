@@ -71,7 +71,11 @@ function LibraryDetails({ navigation, route }: any) {
             };
 
             return (
-              <LibraryListElement nodeData={item} onPress={child ? onPressHandler : undefined} />
+              <LibraryListElement
+                nodeData={item}
+                key={item._id}
+                onPress={child ? onPressHandler : undefined}
+              />
             );
           }}
           keyExtractor={(item) => item._id}

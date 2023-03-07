@@ -61,7 +61,7 @@ function AudioScreen({ navigation }: any) {
             const onPressHandler = () => {
               navigation.push("MediaScreen");
             };
-            return <AudioListElement audioData={item} onPress={onPressHandler} />;
+            return <AudioListElement key={item._id} audioData={item} onPress={onPressHandler} />;
           }}
           keyExtractor={(item) => item._id}
           style={{ width: "100%" }}
