@@ -13,7 +13,6 @@ import { Background } from "../Background/Background";
 import AudioControlButton from "../Button/AudioControlButton";
 import { BaseText } from "../Typography/BaseText";
 import { AudioBook } from "../../../common/AudioBook";
-import { getListOfAudios } from "../../services/audios";
 import { SmallLoaderPage } from "../Loader/SmallLoaderPage";
 
 interface MusicPlayerProps {
@@ -56,11 +55,12 @@ function MusicPlayer({ audios }: MusicPlayerProps) {
             Capability.SkipToPrevious,
           ],
         });
-        await TrackPlayer.add(audiosDataForPlayer);
       } catch (error) {
         console.log("!!! Error - setupPlayer");
         console.log(error);
       }
+
+      await TrackPlayer.add(audiosDataForPlayer);
 
       try {
         await syncTrackData();

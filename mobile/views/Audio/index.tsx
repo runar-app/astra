@@ -54,7 +54,7 @@ function AudioScreen({ navigation }: any) {
   );
 }
 
-function MediaPlayerScreen({ navigation }: any) {
+function MediaPlayerScreen() {
   const [audios, setAudios] = React.useState<AudioBook[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
 
@@ -62,7 +62,6 @@ function MediaPlayerScreen({ navigation }: any) {
     setLoading(true);
     (async () => {
       const audios = await getListOfAudios({ lang: "ru" });
-      console.log("audios", audios);
 
       setAudios(audios);
       setLoading(false);
@@ -72,7 +71,10 @@ function MediaPlayerScreen({ navigation }: any) {
   if (loading) {
     return <SmallLoaderPage loadingTextMessage="Loading data..." />;
   }
+
+  return <MusicPlayer audios={audios} />;
 }
+
 const AudioStack = createNativeStackNavigator();
 
 export function AudioStackScreen() {
