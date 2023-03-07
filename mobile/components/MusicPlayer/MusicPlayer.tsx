@@ -176,7 +176,11 @@ function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
 
         <View style={styles.progressContainer}>
           <SmallText>
-            {new Date(progress.position * 1000).toLocaleTimeString().substring(3)}
+            {new Date(progress.position * 1000)
+              .toLocaleTimeString()
+              .substring(3)
+              .replace("AM", "")
+              .trim()}
           </SmallText>
 
           <Slider
@@ -192,7 +196,9 @@ function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
           <SmallText>
             {new Date((progress.duration - progress.position) * 1000)
               .toLocaleTimeString()
-              .substring(3)}
+              .substring(3)
+              .replace("AM", "")
+              .trim()}
           </SmallText>
         </View>
         <View style={styles.infoContainer}>
@@ -207,13 +213,6 @@ function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
 export default MusicPlayer;
 
 const styles = StyleSheet.create({
-  progressContainer: {
-    width: "100%",
-    padding: 0,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-  },
   infoContainer: {
     backgroundColor: "rgba(30, 30, 30, 0.75)",
     borderRadius: 30,
@@ -227,6 +226,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     textAlign: "center",
   },
+
+  progressContainer: {
+    width: "100%",
+    padding: 0,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10,
+  },
   progressBar: {
     display: "flex",
     width: "70%",
@@ -235,9 +244,12 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
-    gap: 30,
+    height: "100%",
+    paddingTop: "10%",
+    paddingBottom: "10%",
+    gap: 10,
     flexDirection: "column",
   },
   coverContainer: {
@@ -246,14 +258,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0,0,0,0.6)",
-    borderRadius: 33,
-    width: 200,
-    height: 200,
+    borderRadius: 15,
+    width: "90%",
+    height: "70%",
     borderWidth: 3,
     borderColor: "rgba(0, 0, 0, 0.4)",
   },
   imageCover: {
-    borderRadius: 30,
+    borderRadius: 15,
     width: "100%",
     height: "100%",
     borderWidth: 2,
