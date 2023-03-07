@@ -2,18 +2,28 @@ import * as React from "react";
 import { FlatList, View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { AudioBook } from "../../../common/AudioBook";
-import { getListOfAudios } from "../../services/audios";
+import { getCurrentPlayedAudio, getListOfAudios, playTrack } from "../../services/audios";
 import { SmallLoaderPage } from "../../components/Loader/SmallLoaderPage";
 import { AudioListElement } from "../../components/AudioListElement/AudioListElement";
 import { Background } from "../../components/Background/Background";
 import { UIMessage } from "../../data/messages";
 import MusicPlayer from "../../components/MusicPlayer/MusicPlayer";
 import NetInfo from "@react-native-community/netinfo";
+import { useTrackPlayerEvents, Event } from "react-native-track-player";
 
 function AudioScreen({ navigation }: any) {
   const [audios, setAudios] = React.useState<AudioBook[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
   const [isOnline, setIsOnline] = React.useState<boolean>(false);
+  const [currentTrack, setCurrentTrack] = React.useState<AudioBook>();
+
+  useTrackPlayerEvents([Event.PlaybackTrackChanged], async (event) => {
+    if (event.type !== Event.PlaybackTrackChanged || event.nextTrack === null) {
+      return;
+    }
+    const currentTrack = await getCurrentPlayedAudio();
+    setCurrentTrack(currentTrack);
+  });
 
   React.useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
@@ -58,10 +68,22 @@ function AudioScreen({ navigation }: any) {
         <FlatList
           data={audios}
           renderItem={({ item }) => {
-            const onPressHandler = () => {
+            const isPlaying = currentTrack?._id === item._id;
+            const onPressHandler = async () => {
+              if (!isPlaying) {
+                await playTrack(item._id);
+              }
               navigation.push("MediaScreen");
             };
-            return <AudioListElement key={item._id} audioData={item} onPress={onPressHandler} />;
+
+            return (
+              <AudioListElement
+                active={isPlaying}
+                key={item._id}
+                audioData={item}
+                onPress={onPressHandler}
+              />
+            );
           }}
           keyExtractor={(item) => item._id}
           style={{ width: "100%" }}

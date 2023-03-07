@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import TrackPlayer, {
-  Capability,
   usePlaybackState,
   useProgress,
   useTrackPlayerEvents,
@@ -13,133 +12,66 @@ import { Background } from "../Background/Background";
 import AudioControlButton from "../Button/AudioControlButton";
 import { BaseText } from "../Typography/BaseText";
 import { AudioBook } from "../../../common/AudioBook";
-import { SmallLoaderPage } from "../Loader/SmallLoaderPage";
 import { Colors } from "../../commonStyle";
 import AudioPlayIcon from "../../icons/AudioPlayIcon";
 import AudioPauseIcon from "../../icons/AudioPauseIcon";
 import AudioNextIcon from "../../icons/AudioNextIcon";
 import AudioPrevIcon from "../../icons/AudioPrevIcon";
 import { SmallText } from "../Typography/SmallText";
+import {
+  getCurrentPlayedAudio,
+  playNextTrack,
+  playPauseToggler,
+  playPrevTrack,
+} from "../../services/audios";
+import { SmallLoaderPage } from "../Loader/SmallLoaderPage";
 
-interface MusicPlayerProps {
-  audios: AudioBook[];
-  newAudioId?: string;
-}
-
-function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
-  const [trackIndex, setTrackIndex] = useState(0);
-  const [trackTitle, setTrackTitle] = useState("");
-  const [trackArtist, setTrackArtist] = useState("");
-  const [trackArtwork, setTrackArtwork] = useState("");
+function MusicPlayer() {
+  const [currentTrack, setCurrentTrack] = useState<AudioBook>();
+  const [loading, setLoading] = useState(true);
 
   const progress = useProgress();
   const playBackState = usePlaybackState();
   const isPlay = playBackState === State.Playing;
 
-  const audiosDataForPlayer = audios.map((audio) => {
-    return {
-      id: audio._id,
-      url: audio.audioUrl,
-      title: audio.title,
-      artist: audio.category,
-      artwork: audio.coverImgUrl,
-    };
-  });
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 100);
+  }, [loading]);
 
   useEffect(() => {
     (async () => {
-      try {
-        await TrackPlayer.updateOptions({
-          capabilities: [
-            Capability.Play,
-            Capability.Pause,
-            Capability.SkipToNext,
-            Capability.SeekTo,
-            Capability.Stop,
-            Capability.SkipToPrevious,
-          ],
-        });
-        await TrackPlayer.add(audiosDataForPlayer);
-      } catch (error) {
-        console.log("!!! Error - setupPlayer");
-        console.log(error);
-      }
-
-      try {
-        await syncTrackData();
-      } catch (error) {
-        console.log("!!! Error - add");
-      }
+      const currentTrack = await getCurrentPlayedAudio();
+      setCurrentTrack(currentTrack);
     })();
-  }, [audios]);
+  }, []);
 
   useTrackPlayerEvents([Event.PlaybackTrackChanged], async (event) => {
-    if (event.type === Event.PlaybackTrackChanged && event.nextTrack !== null) {
-      const track = await TrackPlayer.getTrack(event.nextTrack);
-      if (!track) {
-        return;
-      }
-
-      const { title, artwork, artist } = track;
-      setTrackIndex(event.nextTrack);
-      setTrackTitle(title || "");
-      setTrackArtist(artist || "");
-      setTrackArtwork(`${artwork}` || "");
+    if (event.type !== Event.PlaybackTrackChanged || event.nextTrack === null) {
+      return;
     }
+    const currentTrack = await getCurrentPlayedAudio();
+    setCurrentTrack(currentTrack);
   });
 
-  const syncTrackData = async () => {
-    let trackIndex = await TrackPlayer.getCurrentTrack();
-
-    if (trackIndex === null) {
-      return;
-    }
-
-    let trackObject = await TrackPlayer.getTrack(trackIndex);
-    if (!trackObject) {
-      return;
-    }
-
-    setTrackTitle(trackObject?.title || "");
-    setTrackArtist(trackObject?.artist || "");
-    setTrackArtwork(`${trackObject?.artwork || ""}`);
-  };
-
-  const nextTrack = async () => {
-    if (trackIndex < audios.length - 1) {
-      await TrackPlayer.skipToNext();
-      syncTrackData();
-    }
-  };
-
-  const previousTrack = async () => {
-    if (trackIndex > 0) {
-      await TrackPlayer.skipToPrevious();
-      syncTrackData();
-    }
-  };
-
   const togglePlayBack = async (playBackState: State) => {
-    const currentTrack = await TrackPlayer.getCurrentTrack();
-    if (currentTrack != null) {
-      if (playBackState == State.Paused || playBackState == State.Ready) {
-        await TrackPlayer.play();
-      } else {
-        await TrackPlayer.pause();
-      }
-      syncTrackData();
-    }
+    await playPauseToggler(playBackState == State.Paused || playBackState == State.Ready);
   };
+
+  if (loading) {
+    return <SmallLoaderPage loadingTextMessage="Loading data..." />;
+  }
 
   return (
     <Background>
       <View style={styles.mainContainer}>
         <View style={styles.coverContainer}>
-          {trackArtwork && (
+          {currentTrack?.coverImgUrl && (
             <Image
               style={styles.imageCover}
               source={{
-                uri: trackArtwork,
+                uri: currentTrack.coverImgUrl,
               }}
             />
           )}
@@ -149,7 +81,8 @@ function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
           <AudioControlButton
             icon={<AudioPrevIcon color={Colors.audioControlButtonColor} size={30} />}
             onPress={async () => {
-              await previousTrack();
+              setLoading(true);
+              await playPrevTrack();
             }}
           />
 
@@ -167,9 +100,9 @@ function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
           />
           <AudioControlButton
             icon={<AudioNextIcon color={Colors.audioControlButtonColor} size={30} />}
-            color="next"
             onPress={async () => {
-              await nextTrack();
+              setLoading(true);
+              await playNextTrack();
             }}
           />
         </View>
@@ -202,8 +135,8 @@ function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
           </SmallText>
         </View>
         <View style={styles.infoContainer}>
-          <BaseText>{trackTitle}</BaseText>
-          <SmallText>{trackArtist}</SmallText>
+          <BaseText center>{currentTrack?.title}</BaseText>
+          <SmallText center>{currentTrack?.category}</SmallText>
         </View>
       </View>
     </Background>

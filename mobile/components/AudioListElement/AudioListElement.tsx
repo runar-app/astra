@@ -4,19 +4,36 @@ import { BaseText } from "../Typography/BaseText";
 import { AudioBook } from "../../../common/AudioBook";
 import { Colors } from "../../commonStyle";
 import { SmallText } from "../Typography/SmallText";
+import AudioPlayIcon from "../../icons/AudioPlayIcon";
 
 interface AudioListElementProps {
   audioData: AudioBook;
-  color?: string;
+  active?: boolean;
   onPress?: () => void;
 }
 
-export const AudioListElement = ({ audioData, onPress }: AudioListElementProps) => {
+export const AudioListElement = ({ audioData, onPress, active }: AudioListElementProps) => {
   return (
-    <TouchableHighlight onPress={onPress} underlayColor="rgba(0,0,0,0.3)">
-      <View style={styles.listItem}>
-        <Image style={styles.cover} source={{ uri: audioData.coverImgUrl }} />
-        <View>
+    <TouchableHighlight onPress={onPress} style={{ width: "100%" }} underlayColor="rgba(0,0,0,0.3)">
+      <View
+        style={{
+          ...styles.listItem,
+          backgroundColor: active ? Colors.audioCoverListBorderActive : "rgba(0, 0, 0, 0)",
+        }}
+      >
+        {active && <AudioPlayIcon color={Colors.audioControlButtonColor} size={50} />}
+
+        {!active && (
+          <Image
+            style={{
+              ...styles.cover,
+              borderColor: active ? Colors.audioCoverListBorderActive : "rgba(0, 0, 0, 0)",
+            }}
+            source={{ uri: audioData.coverImgUrl }}
+          />
+        )}
+
+        <View style={{ width: "70%" }}>
           <BaseText>{audioData.title}</BaseText>
           <SmallText>{audioData.category}</SmallText>
         </View>
@@ -42,8 +59,10 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     display: "flex",
     flexDirection: "row",
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(0, 0, 0, 0.2)",
     gap: 20,
-    width: "80%",
+    width: "100%",
     alignItems: "center",
   },
 });

@@ -21,7 +21,8 @@ export const Colors = {
   smallTextColor: ColorPalette.subTextContent,
   loadingText: ColorPalette.primary,
   audioControlButtonColor: ColorPalette.primary,
-  audioCoverListBorder: "rgba(255, 255, 255, 0.2)",
+  audioCoverListBorder: "rgba(255, 255, 255, 0.1)",
+  audioCoverListBorderActive: "rgba(0, 0, 0, 0.6)",
   tagsBorder: "#c2c2c2",
 };
 

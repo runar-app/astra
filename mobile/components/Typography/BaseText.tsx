@@ -5,10 +5,21 @@ import React from "react";
 interface BaseTextProps {
   children: React.ReactNode;
   color?: string;
+  center?: boolean;
 }
 
-export const BaseText = ({ children, color }: BaseTextProps) => {
-  return <Text style={{ ...styles.text, color: color || Colors.baseTextColor }}>{children}</Text>;
+export const BaseText = ({ children, color, center }: BaseTextProps) => {
+  return (
+    <Text
+      style={{
+        ...styles.text,
+        color: color || Colors.baseTextColor,
+        textAlign: center ? "center" : "left",
+      }}
+    >
+      {children}
+    </Text>
+  );
 };
 
 const styles = StyleSheet.create({
