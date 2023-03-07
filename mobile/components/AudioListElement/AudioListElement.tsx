@@ -40,12 +40,10 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     paddingLeft: 15,
     paddingRight: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#222",
     display: "flex",
     flexDirection: "row",
     gap: 20,
-    width: "100%",
+    width: "80%",
     alignItems: "center",
   },
 });
