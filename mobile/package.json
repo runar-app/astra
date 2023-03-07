@@ -10,6 +10,7 @@
     "web": "expo start --web",
     "submit-ios": "eas submit --platform ios",
     "build": "npm run update-build && eas build",
+    "apk": "eas build -p android --profile preview",
     "submit": "eas submit"
   },
   "dependencies": {

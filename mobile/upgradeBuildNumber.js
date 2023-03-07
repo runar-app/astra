@@ -37,6 +37,21 @@ const getIosListConfig = async () => {
   return data;
 };
 
+const AndroidConfigPath = path.join(__dirname, "./android/app/build.gradle");
+const saveAndroidListConfig = async (config) => {
+  await writeFileAsync(AndroidConfigPath, config, {
+    encoding: "utf-8",
+  });
+};
+
+const getAndroidListConfig = async () => {
+  const data = await readFileAsync(AndroidConfigPath, {
+    encoding: "utf-8",
+  });
+
+  return data;
+};
+
 const getCurrentBuildNumber = async () => {
   const config = await getConfig();
   return parseInt(config.expo.android.versionCode);
@@ -66,4 +81,18 @@ const getCurrentBuildNumber = async () => {
     })
     .join("\n");
   await saveIosListConfig(newIosConfig);
+
+  const AndroidConfig = await getAndroidListConfig();
+  const AndroidConfigLines = AndroidConfig.split("\n");
+
+  const newAndroidConfig = AndroidConfigLines.map((line, index) => {
+    const keyName = (AndroidConfigLines[index - 1] && AndroidConfigLines[index - 1]) || "";
+
+    if (keyName.includes("rootProject.ext.targetSdkVersion")) {
+      return `        versionCode ${nextBuildNumber}`;
+    } else {
+      return line;
+    }
+  }).join("\n");
+  await saveAndroidListConfig(newAndroidConfig);
 })();
