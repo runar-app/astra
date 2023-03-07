@@ -17,15 +17,16 @@ import { SmallLoaderPage } from "../Loader/SmallLoaderPage";
 
 interface MusicPlayerProps {
   audios: AudioBook[];
+  newAudioId?: string;
 }
 
-function MusicPlayer({ audios }: MusicPlayerProps) {
+function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
   const [trackIndex, setTrackIndex] = useState(0);
   const [trackTitle, setTrackTitle] = useState("");
   const [trackArtist, setTrackArtist] = useState("");
   const [trackArtwork, setTrackArtwork] = useState("");
 
-  const progress = useProgress();
+  // const progress = useProgress();
   const playBackState = usePlaybackState();
   const isPlating = playBackState === State.Playing;
 
@@ -34,15 +35,16 @@ function MusicPlayer({ audios }: MusicPlayerProps) {
     return {
       id: audio._id,
       url: audio.audioUrl,
-      title: audio.title || "Audio Book",
-      artist: audio.category || "Runar",
-      artwork: audio.coverImgUrl || "",
+      title: audio.title,
+      artist: audio.category,
+      artwork: audio.coverImgUrl,
     };
   });
 
   useEffect(() => {
     setLoading(true);
     (async () => {
+      return;
       try {
         await TrackPlayer.setupPlayer();
         await TrackPlayer.updateOptions({
@@ -55,12 +57,11 @@ function MusicPlayer({ audios }: MusicPlayerProps) {
             Capability.SkipToPrevious,
           ],
         });
+        await TrackPlayer.add(audiosDataForPlayer);
       } catch (error) {
         console.log("!!! Error - setupPlayer");
         console.log(error);
       }
-
-      await TrackPlayer.add(audiosDataForPlayer);
 
       try {
         await syncTrackData();
@@ -130,10 +131,6 @@ function MusicPlayer({ audios }: MusicPlayerProps) {
     }
   };
 
-  if (loading) {
-    return <SmallLoaderPage loadingTextMessage="Loading audio..." />;
-  }
-
   return (
     <Background>
       <View style={styles.mainContainer}>
@@ -173,8 +170,14 @@ function MusicPlayer({ audios }: MusicPlayerProps) {
         <View style={styles.progressContainer}>
           <BaseText>Current Title: {trackTitle}</BaseText>
           <BaseText>Current Artist: {trackArtist}</BaseText>
+        </View>
+      </View>
+    </Background>
+  );
+}
 
-          <BaseText>
+/*
+<BaseText>
             Current time: {new Date(progress.position * 1000).toLocaleTimeString().substring(3)}
           </BaseText>
 
@@ -194,12 +197,8 @@ function MusicPlayer({ audios }: MusicPlayerProps) {
             maximumTrackTintColor="#fff"
             onSlidingComplete={async (value) => await TrackPlayer.seekTo(value)}
           />
-        </View>
-      </View>
-    </Background>
-  );
-}
-
+          
+*/
 export default MusicPlayer;
 
 const styles = StyleSheet.create({

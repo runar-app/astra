@@ -26,14 +26,6 @@ function AudioScreen({ navigation }: any) {
     return <SmallLoaderPage loadingTextMessage="Loading data..." />;
   }
 
-  const categoriesAudios = audios.reduce((acc, audio) => {
-    if (!acc[audio.category]) {
-      acc[audio.category] = [];
-    }
-    acc[audio.category].push(audio);
-    return acc;
-  }, {} as { [key: string]: AudioBook[] });
-
   return (
     <View
       style={{
@@ -48,7 +40,7 @@ function AudioScreen({ navigation }: any) {
           data={audios}
           renderItem={({ item }) => {
             const onPressHandler = () => {
-              navigation.push("AudioDetail");
+              navigation.push("MediaScreen");
             };
             return <AudioListElement audioData={item} onPress={onPressHandler} />;
           }}
@@ -63,6 +55,7 @@ function AudioScreen({ navigation }: any) {
 function MediaPlayerScreen() {
   const [audios, setAudios] = React.useState<AudioBook[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
+  console.log("MediaPlayerScreen2");
 
   React.useEffect(() => {
     setLoading(true);

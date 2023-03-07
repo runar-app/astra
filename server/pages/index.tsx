@@ -20,8 +20,6 @@ export default function Home() {
 
   useEffect(() => {
     const scrollDown = () => {
-      console.log("Scrolling down");
-
       const messageList = messageListRef.current;
       if (!messageList) {
         return;
@@ -82,7 +80,6 @@ export default function Home() {
     }
 
     const data = await response.json();
-    console.log(data);
 
     if (data.result.error === "Unauthorized") {
       handleError();

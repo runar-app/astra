@@ -16,8 +16,6 @@ const styles = StyleSheet.create({
 });
 
 function AssistantScreen() {
-  console.log("vikingAssistantUrl", vikingAssistantUrl);
-
   return <WebView textZoom={100} source={{ uri: vikingAssistantUrl }} style={styles.webView} />;
 }
 
