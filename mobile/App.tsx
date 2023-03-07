@@ -12,10 +12,19 @@ import { LibraryStackScreen } from "./views/Library";
 import AudioIcon from "./icons/AudioIcon";
 import { UIMessage } from "./data/messages";
 import "expo-dev-client";
+import TrackPlayer from "react-native-track-player";
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  React.useEffect(() => {
+    console.log("App.tsx Init");
+    async () => {
+      console.log("Before Player init");
+      await TrackPlayer.setupPlayer();
+      console.log("After Player init");
+    };
+  }, []);
   return (
     <NavigationContainer theme={RunarTheme}>
       <Tab.Navigator screenOptions={{ headerShown: false }}>

@@ -26,7 +26,7 @@ function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
   const [trackArtist, setTrackArtist] = useState("");
   const [trackArtwork, setTrackArtwork] = useState("");
 
-  // const progress = useProgress();
+  const progress = useProgress();
   const playBackState = usePlaybackState();
   const isPlating = playBackState === State.Playing;
 
@@ -44,9 +44,13 @@ function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
   useEffect(() => {
     setLoading(true);
     (async () => {
-      return;
+      console.log("Use ef");
+
+      //await TrackPlayer.reset();
+      // const state = await TrackPlayer.getState();
+      //console.log("state", state);
+
       try {
-        await TrackPlayer.setupPlayer();
         await TrackPlayer.updateOptions({
           capabilities: [
             Capability.Play,
@@ -219,15 +223,16 @@ const styles = StyleSheet.create({
   },
   coverContainer: {
     display: "flex",
-    padding: 40,
+    padding: 0,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0,0,0,0.6))",
-    borderRadius: 30,
-    width: "70%",
-    height: 200,
+    borderRadius: 40,
+    width: 250,
+    height: 250,
   },
   imageCover: {
+    borderRadius: 30,
     width: "100%",
     height: "100%",
   },
