@@ -19,6 +19,7 @@ import AudioPlayIcon from "../../icons/AudioPlayIcon";
 import AudioPauseIcon from "../../icons/AudioPauseIcon";
 import AudioNextIcon from "../../icons/AudioNextIcon";
 import AudioPrevIcon from "../../icons/AudioPrevIcon";
+import { SmallText } from "../Typography/SmallText";
 
 interface MusicPlayerProps {
   audios: AudioBook[];
@@ -183,9 +184,9 @@ function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
           />
         </View>
 
-        <View style={styles.progressContainer}>
-          <BaseText>Current Title: {trackTitle}</BaseText>
-          <BaseText>Current Artist: {trackArtist}</BaseText>
+        <View style={styles.infoContainer}>
+          <BaseText>{trackTitle}</BaseText>
+          <SmallText>{trackArtist}</SmallText>
         </View>
       </View>
     </Background>
@@ -221,6 +222,18 @@ const styles = StyleSheet.create({
   progressContainer: {
     width: "100%",
     padding: 10,
+  },
+  infoContainer: {
+    backgroundColor: "rgba(30, 30, 30, 0.75)",
+    borderRadius: 30,
+    width: "70%",
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 20,
+    paddingRight: 20,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   progressBar: {
     alignSelf: "stretch",

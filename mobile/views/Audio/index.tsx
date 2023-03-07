@@ -55,7 +55,6 @@ function AudioScreen({ navigation }: any) {
 function MediaPlayerScreen() {
   const [audios, setAudios] = React.useState<AudioBook[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
-  console.log("MediaPlayerScreen2");
 
   React.useEffect(() => {
     setLoading(true);
@@ -87,7 +86,13 @@ export function AudioStackScreen() {
         component={AudioScreen}
       />
 
-      <AudioStack.Screen name="MediaScreen" component={MediaPlayerScreen} />
+      <AudioStack.Screen
+        name="MediaScreen"
+        options={{
+          title: UIMessage.audioPageTitle,
+        }}
+        component={MediaPlayerScreen}
+      />
     </AudioStack.Navigator>
   );
 }
