@@ -36,7 +36,6 @@ function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
   const playBackState = usePlaybackState();
   const isPlay = playBackState === State.Playing;
 
-  const [loading, setLoading] = React.useState<boolean>(true);
   const audiosDataForPlayer = audios.map((audio) => {
     return {
       id: audio._id,
@@ -48,14 +47,7 @@ function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
   });
 
   useEffect(() => {
-    setLoading(true);
     (async () => {
-      console.log("Use ef");
-
-      //await TrackPlayer.reset();
-      // const state = await TrackPlayer.getState();
-      //console.log("state", state);
-
       try {
         await TrackPlayer.updateOptions({
           capabilities: [
@@ -78,8 +70,6 @@ function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
       } catch (error) {
         console.log("!!! Error - add");
       }
-
-      setLoading(false);
     })();
   }, [audios]);
 
@@ -184,26 +174,11 @@ function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
           />
         </View>
 
-        <View style={styles.infoContainer}>
-          <BaseText>{trackTitle}</BaseText>
-          <SmallText>{trackArtist}</SmallText>
-        </View>
-      </View>
-    </Background>
-  );
-}
+        <View style={styles.progressContainer}>
+          <SmallText>
+            {new Date(progress.position * 1000).toLocaleTimeString().substring(3)}
+          </SmallText>
 
-/*
-<BaseText>
-            Current time: {new Date(progress.position * 1000).toLocaleTimeString().substring(3)}
-          </BaseText>
-
-          <BaseText>
-            Full time:
-            {new Date((progress.duration - progress.position) * 1000)
-              .toLocaleTimeString()
-              .substring(3)}
-          </BaseText>
           <Slider
             style={styles.progressBar}
             value={progress.position}
@@ -214,28 +189,47 @@ function MusicPlayer({ audios, newAudioId }: MusicPlayerProps) {
             maximumTrackTintColor="#fff"
             onSlidingComplete={async (value) => await TrackPlayer.seekTo(value)}
           />
-          
-*/
+          <SmallText>
+            {new Date((progress.duration - progress.position) * 1000)
+              .toLocaleTimeString()
+              .substring(3)}
+          </SmallText>
+        </View>
+        <View style={styles.infoContainer}>
+          <BaseText>{trackTitle}</BaseText>
+          <SmallText>{trackArtist}</SmallText>
+        </View>
+      </View>
+    </Background>
+  );
+}
+
 export default MusicPlayer;
 
 const styles = StyleSheet.create({
   progressContainer: {
     width: "100%",
-    padding: 10,
+    padding: 0,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
   },
   infoContainer: {
     backgroundColor: "rgba(30, 30, 30, 0.75)",
     borderRadius: 30,
-    width: "70%",
-    paddingTop: 5,
-    paddingBottom: 5,
+    width: "93%",
+    paddingTop: 7,
+    paddingBottom: 7,
     paddingLeft: 20,
     paddingRight: 20,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    textAlign: "center",
   },
   progressBar: {
+    display: "flex",
+    width: "70%",
     alignSelf: "stretch",
     marginTop: 0,
   },
