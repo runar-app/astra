@@ -6,6 +6,7 @@
   height: 100vh;
   box-sizing: border-box;
 }
+
 @media (max-width: 1000px) {
   .main {
     padding: 2px 4vw 4vw 4vw;
@@ -19,9 +20,9 @@
 .cloud {
   width: 100%;
   height: calc(100% - 4rem);
-  background: #070809;
+  background: rgba(0, 0, 0, 0.5);
   border-radius: 0.5rem;
-  border: 1px solid #30373d;
+  border: 1px solid #3d3830;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,10 +45,10 @@
   resize: none;
   padding: 15px 15px 15px 15px;
   border-radius: 10px 0 0 10px;
-  border: 1px solid #30373d;
+  border: 1px solid #3d3530;
   border-right: none;
-  background: #070809;
-  color: #ececf1;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1ecec;
   outline: none;
 }
 
@@ -56,7 +57,7 @@
 }
 
 .textarea::placeholder {
-  color: #5f6368;
+  color: #68635f;
 }
 
 .generatebutton {
@@ -71,7 +72,7 @@
   height: calc(100%);
   display: flex;
   z-index: 9999;
-  border: 1px solid #30373d;
+  border: 1px solid #3d3330;
 }
 
 .svgicon {
@@ -98,6 +99,9 @@
   overflow-y: auto;
   border-radius: 0.5rem;
   overflow-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
 }
 
 .messagelistloading {
@@ -108,7 +112,7 @@
 }
 
 .usermessage {
-  background: #070809;
+  background: #090707;
   color: #ececf1;
   overflow-wrap: break-word;
 }
@@ -117,8 +121,8 @@
 }
 
 .usermessagewaiting {
-  color: #ececf1;
-  background: linear-gradient(to left, #070809, #1a1c20, #070809);
+  color: #f1edec;
+  background: linear-gradient(to left, #090707, #201c1a, #090807);
   background-size: 200% 200%;
   background-position: -100% 0;
   animation: loading-gradient 2s ease-in-out infinite;
@@ -136,8 +140,8 @@
 }
 
 .apimessage {
-  background: #141619;
-  color: #ececf1;
+  background: #191514;
+  color: #f1edec;
   animation: fadein 0.5s;
 }
 
