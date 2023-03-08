@@ -26,6 +26,7 @@ export const getAudioBooks = async (lang: string): Promise<AudioBook[]> => {
 
   const audios: AudioBook[] = audioBooksNodes
     .filter((node) => node.audioUrl)
+    .sort((a, b) => a.sortOrder - b.sortOrder)
     .map((node) => {
       const id = `${node._id}`;
       const parent = getParentElement(id, audioBooksNodes);

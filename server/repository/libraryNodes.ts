@@ -16,7 +16,9 @@ export const getRootLibraryNodes = async (lang: string): Promise<LibraryNode[]> 
   const db = await getDB();
   const collectionName = `library_${lang}_notes`;
   const collection = db.collection<LibraryNode>(collectionName);
-  const nodes = await collection.find({ type: "root" }).toArray();
+  let nodes = await collection.find({ type: "root" }).toArray();
+  nodes = nodes.sort((a, b) => a.sortOrder - b.sortOrder);
+  cache.set(cacheKey, nodes);
   return nodes;
 };
 
@@ -49,13 +51,14 @@ export const getChildLibraryNodes = async (
   });
 
   const childNodes = await Promise.all(childRequest);
-  const childNodesClear: LibraryNode[] = [];
+  let childNodesClear: LibraryNode[] = [];
   childNodes.forEach((node) => {
     if (!node) {
       return;
     }
     childNodesClear.push(node);
   });
+  childNodesClear = childNodesClear.sort((a, b) => a.sortOrder - b.sortOrder);
   cache.set(cacheKey, childNodesClear);
   return childNodesClear;
 };
