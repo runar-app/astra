@@ -9,7 +9,7 @@
 
 @media (max-width: 1000px) {
   .main {
-    padding: 1rem 4vw 4vw 4vw;
+    padding: 20px 4vw 4vw 4vw;
     gap: 4vw;
   }
 }
@@ -19,7 +19,7 @@
 
 .cloud {
   width: 100%;
-  height: calc(100% - 4rem);
+  height: calc(100% - 70px);
   background: rgba(0, 0, 0, 0.5);
   border-radius: 0.5rem;
   border: 1px solid #3d3830;
