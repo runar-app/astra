@@ -1,13 +1,6 @@
 import * as React from "react";
-import { FlatList, View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { LibraryNode } from "../../../common/LibraryNode";
-import { getLibraryNodes } from "../../services/library";
-import { SmallLoaderPage } from "../../components/Loader/SmallLoaderPage";
-import { LibraryListElement } from "../../components/LibraryListElement/LibraryListElement";
-import { Background } from "../../components/Background/Background";
 import { UIMessage } from "../../data/messages";
-import NetInfo from "@react-native-community/netinfo";
 import { LibraryNavigationProps, LibraryPage } from "./LibraryPage";
 
 const LibraryStack = createNativeStackNavigator();
