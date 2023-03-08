@@ -11,6 +11,7 @@ export const getRootLibraryNodes = async (lang: string): Promise<LibraryNode[]> 
     console.log("Return from cache getRootLibraryNodes");
     return cacheObject;
   }
+  console.log("New request for getRootLibraryNodes", lang);
 
   const db = await getDB();
   const collectionName = `library_${lang}_notes`;
@@ -29,7 +30,7 @@ export const getChildLibraryNodes = async (
     console.log("Return from cache getChildLibraryNodes");
     return cacheObject;
   }
-
+  console.log("New request for getChildLibraryNodes", lang, parentId);
   const db = await getDB();
   const collectionName = `library_${lang}_notes`;
   const collection = db.collection<LibraryNode>(collectionName);

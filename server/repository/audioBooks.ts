@@ -13,9 +13,11 @@ export const getAudioBooks = async (lang: string): Promise<AudioBook[]> => {
   const cacheKey = `${lang}`;
   const cacheObject = cache.get(cacheKey);
   if (cacheObject) {
-    console.log("Return from cache");
+    console.log("Return from cache audios");
     return cacheObject;
   }
+  console.log("New request for audios", lang);
+
   const db = await getDB();
   const collectionName = `library_${lang}_notes`;
   const collection = db.collection<LibraryNode>(collectionName);
