@@ -12,7 +12,7 @@ import { LibraryStackScreen } from "./views/Library";
 import AudioIcon from "./icons/AudioIcon";
 import { UIMessage } from "./data/messages";
 import "expo-dev-client";
-import TrackPlayer from "react-native-track-player";
+import TrackPlayer, { Capability } from "react-native-track-player";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,6 +23,17 @@ export default function App() {
       console.log("Init: Before Player init");
       try {
         await TrackPlayer.setupPlayer();
+        await TrackPlayer.updateOptions({
+          capabilities: [
+            Capability.Play,
+            Capability.Pause,
+            Capability.SkipToNext,
+            Capability.SeekTo,
+            Capability.Stop,
+            Capability.SkipToPrevious,
+          ],
+          compactCapabilities: [Capability.Play, Capability.Stop, Capability.Pause],
+        });
       } catch (e) {
         console.log("Init: Error in TrackPlayer setupPlayer: ", e);
       }

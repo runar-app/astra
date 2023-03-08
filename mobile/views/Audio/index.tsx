@@ -94,8 +94,6 @@ function AudioScreen({ navigation }: any) {
 }
 
 function MediaPlayerScreen() {
-  const [audios, setAudios] = React.useState<AudioBook[]>([]);
-  const [loading, setLoading] = React.useState<boolean>(true);
   const [isOnline, setIsOnline] = React.useState<boolean>(false);
 
   React.useEffect(() => {
@@ -112,23 +110,13 @@ function MediaPlayerScreen() {
     if (!isOnline) {
       return;
     }
-    setLoading(true);
-    (async () => {
-      const audios = await getListOfAudios({ lang: "ru" });
-      setAudios(audios);
-      setLoading(false);
-    })();
   }, [isOnline]);
 
   if (!isOnline) {
     return <SmallLoaderPage loadingTextMessage="Waiting for internet connection..." />;
   }
 
-  if (loading) {
-    return <SmallLoaderPage loadingTextMessage="Loading data..." />;
-  }
-
-  return <MusicPlayer audios={audios} />;
+  return <MusicPlayer />;
 }
 
 const AudioStack = createNativeStackNavigator();

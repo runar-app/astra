@@ -24,21 +24,14 @@ import {
   playPauseToggler,
   playPrevTrack,
 } from "../../services/audios";
-import { SmallLoaderPage } from "../Loader/SmallLoaderPage";
+import AudioIcon from "../../icons/AudioIcon";
 
 function MusicPlayer() {
   const [currentTrack, setCurrentTrack] = useState<AudioBook>();
-  const [loading, setLoading] = useState(true);
 
   const progress = useProgress();
   const playBackState = usePlaybackState();
   const isPlay = playBackState === State.Playing;
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 100);
-  }, [loading]);
 
   useEffect(() => {
     (async () => {
@@ -59,10 +52,6 @@ function MusicPlayer() {
     await playPauseToggler(playBackState == State.Paused || playBackState == State.Ready);
   };
 
-  if (loading) {
-    return <SmallLoaderPage loadingTextMessage="Loading data..." />;
-  }
-
   return (
     <Background>
       <View style={styles.mainContainer}>
@@ -75,13 +64,16 @@ function MusicPlayer() {
               }}
             />
           )}
+
+          {!currentTrack?.coverImgUrl && (
+            <AudioIcon color={Colors.audioCoverImageLoadingIcon} size={80} />
+          )}
         </View>
 
         <View style={styles.playControlContainer}>
           <AudioControlButton
             icon={<AudioPrevIcon color={Colors.audioControlButtonColor} size={30} />}
             onPress={async () => {
-              setLoading(true);
               await playPrevTrack();
             }}
           />
@@ -101,7 +93,6 @@ function MusicPlayer() {
           <AudioControlButton
             icon={<AudioNextIcon color={Colors.audioControlButtonColor} size={30} />}
             onPress={async () => {
-              setLoading(true);
               await playNextTrack();
             }}
           />
@@ -150,8 +141,9 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(30, 30, 30, 0.75)",
     borderRadius: 30,
     width: "93%",
-    paddingTop: 7,
-    paddingBottom: 7,
+    paddingTop: 0,
+    height: 60,
+    paddingBottom: 0,
     paddingLeft: 20,
     paddingRight: 20,
     display: "flex",
@@ -190,7 +182,7 @@ const styles = StyleSheet.create({
     padding: 0,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.6)",
+    backgroundColor: "rgba(40, 40, 40, 0.6)",
     borderRadius: 15,
     width: "80%",
     height: "50%",

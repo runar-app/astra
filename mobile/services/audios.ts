@@ -57,18 +57,7 @@ export const getCurrentPlayedAudio = async () => {
 };
 
 const setNewAudioList = async (audioTracks: Track[]) => {
-  await TrackPlayer.updateOptions({
-    capabilities: [
-      Capability.Play,
-      Capability.Pause,
-      Capability.SkipToNext,
-      Capability.SeekTo,
-      Capability.Stop,
-      Capability.SkipToPrevious,
-    ],
-    compactCapabilities: [Capability.Play, Capability.Stop, Capability.Pause],
-  });
-  TrackPlayer.reset();
+  await TrackPlayer.reset();
   await TrackPlayer.add(audioTracks);
 };
 
