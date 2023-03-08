@@ -9,6 +9,7 @@ import { UIMessage } from "../../data/messages";
 import NetInfo from "@react-native-community/netinfo";
 import { useTrackPlayerEvents, Event } from "react-native-track-player";
 import { BaseText } from "../../components/Typography/BaseText";
+import { SmallText } from "../../components/Typography/SmallText";
 
 export function AudioListPage({ navigation }: any) {
   const [audios, setAudios] = React.useState<AudioBook[]>([]);
@@ -67,7 +68,10 @@ export function AudioListPage({ navigation }: any) {
         {audios.length === 0 && <BaseText>{UIMessage.noAudiosFound}</BaseText>}
         <FlatList
           data={audios}
-          renderItem={({ item }) => {
+          renderItem={({ item, index }) => {
+            const isNeedToShowCategory =
+              index === 0 || audios[index - 1].category !== item.category;
+
             const isPlaying = currentTrack?._id === item._id;
             const onPressHandler = async () => {
               if (!isPlaying) {
@@ -77,12 +81,14 @@ export function AudioListPage({ navigation }: any) {
             };
 
             return (
-              <AudioListElement
-                active={isPlaying}
-                key={item._id}
-                audioData={item}
-                onPress={onPressHandler}
-              />
+              <View key={item._id}>
+                {isNeedToShowCategory && (
+                  <View style={{ padding: 20 }}>
+                    <SmallText>{item.category}</SmallText>
+                  </View>
+                )}
+                <AudioListElement active={isPlaying} audioData={item} onPress={onPressHandler} />
+              </View>
             );
           }}
           keyExtractor={(item) => item._id}
