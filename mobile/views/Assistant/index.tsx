@@ -11,8 +11,8 @@ import NetInfo from "@react-native-community/netinfo";
 
 const styles = StyleSheet.create({
   webView: {
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: 0,
+    marginBottom: 0,
     width: "100%",
     height: "101%",
     backgroundColor: "#000000",

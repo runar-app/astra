@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const source = require("../../assets/bg/darkVertical.png");
+const source = require("../../assets/bg/bg.jpg");
 
 export const Background = ({ children }: BackgroundProps) => {
   return (

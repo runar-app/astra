@@ -9,7 +9,7 @@
 
 @media (max-width: 1000px) {
   .main {
-    padding: 2px 4vw 4vw 4vw;
+    padding: 1rem 4vw 4vw 4vw;
     gap: 4vw;
   }
 }
