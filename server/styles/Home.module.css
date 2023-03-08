@@ -71,10 +71,10 @@
 
 .messagelist {
   width: 100%;
-  height: auto;
+  height: calc(100vh - 3.4rem - 40px);
+  overflow: auto;
   border-radius: 0.5rem;
   overflow-wrap: break-word;
-  padding-bottom: 80px;
 }
 
 .messagelistloading {

@@ -34,6 +34,8 @@ export default function Home() {
   const router = useRouter();
 
   const [messages, setMessages] = useState<Message[]>([]);
+  const lang = router.query.lang === "ru" ? "ru" : "en";
+  const initLangMessage = initMessage[lang];
 
   useEffect(() => {
     if (!router.query.lang) {
@@ -43,14 +45,14 @@ export default function Home() {
     try {
       const prevHistoryStorage = localStorage.getItem("chatHistory");
       const historyMessages = JSON.parse(prevHistoryStorage || "[]");
-      setMessages(historyMessages);
-      return;
+      if (historyMessages.length > 2) {
+        setMessages(historyMessages);
+        return;
+      }
     } catch (e) {
       console.log("Error on parse history");
       console.log(e);
     }
-    const lang = router.query.lang === "ru" ? "ru" : "en";
-    const initLangMessage = initMessage[lang];
 
     setMessages([initLangMessage]);
   }, [router.query.lang]);
@@ -59,10 +61,11 @@ export default function Home() {
 
   useEffect(() => {
     const scrollDown = () => {
-      console.log("document scroll down");
-      const scrollHeight = document.documentElement.scrollHeight;
-      const clientHeight = document.documentElement.clientHeight;
-      window.scrollTo(0, scrollHeight - clientHeight);
+      const messageListNode = document.getElementById("messageList");
+      if (!messageListNode) {
+        return;
+      }
+      messageListNode.scrollTop = messageListNode?.scrollHeight;
     };
     scrollDown();
 
@@ -149,7 +152,19 @@ export default function Home() {
         <meta name="theme-color" content="#070809" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className={styles.messagelist}>
+      <div className={styles.messagelist} id="messageList">
+        {messages.length > 2 && (
+          <div
+            className="clearControls"
+            onClick={() => {
+              setMessages([initLangMessage]);
+              localStorage.setItem("chatHistory", "[]");
+            }}
+          >
+            <button className="clearHistoryButton">Clear history</button>
+          </div>
+        )}
+
         {messages.map((message, index) => {
           return (
             // The latest message sent by the user will be animated while waiting for a response
