@@ -30,14 +30,14 @@ export const RuneLibraryListElement = ({ nodeData, onPress }: LibraryListElement
           {tags.length > 0 && (
             <View style={styles.tagsContainer}>
               {tags.map((tag) => (
-                <View style={styles.tag}>
+                <View style={styles.tag} key={tag}>
                   <SmallText>{tag}</SmallText>
                 </View>
               ))}
             </View>
           )}
 
-          {nodeData.content && <SmallText>{nodeData.content}</SmallText>}
+          {nodeData.content && <BaseText>{nodeData.content}</BaseText>}
         </View>
       </View>
     </TouchableHighlight>

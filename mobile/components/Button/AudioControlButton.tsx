@@ -1,7 +1,6 @@
 import React from "react";
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import { StyleSheet, Pressable } from "react-native";
 import { Colors } from "../../commonStyle";
-import RightArrowIcon from "../../icons/Arrow";
 
 interface AudioControlButtonProps {
   onPress: () => void;

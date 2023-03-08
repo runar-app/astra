@@ -1,5 +1,5 @@
-import { ActivityIndicator, Text, View } from "react-native";
-import { Colors, FontSizes } from "../../commonStyle";
+import { ActivityIndicator, View } from "react-native";
+import { Colors } from "../../commonStyle";
 import React from "react";
 import { BaseText } from "../Typography/BaseText";
 import { Background } from "../Background/Background";

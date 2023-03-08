@@ -3,7 +3,6 @@ import React from "react";
 import { BaseText } from "../Typography/BaseText";
 import { LibraryNode } from "../../../common/LibraryNode";
 import { SmallText } from "../Typography/SmallText";
-import { RuneLibraryListElement } from "./RuneLibraryListElement";
 
 interface TextLibraryElementProps {
   nodeData: LibraryNode;
@@ -11,13 +10,9 @@ interface TextLibraryElementProps {
 }
 
 export const TextLibraryElement = ({ nodeData, onPress }: TextLibraryElementProps) => {
-  const type = nodeData.type;
-  const textNode = ["plainText", "poem", "rune"].includes(type);
-  const containerStyle = textNode ? styles.textMenuItem : styles.listMenuItem;
-
   return (
     <TouchableHighlight onPress={onPress} underlayColor="rgba(0,0,0,0.3)">
-      <View style={containerStyle}>
+      <View style={styles.nodeContainer}>
         {nodeData.imageUrl && (
           <Image
             style={styles.rootImage}
@@ -26,9 +21,9 @@ export const TextLibraryElement = ({ nodeData, onPress }: TextLibraryElementProp
             }}
           />
         )}
-        <View style={styles.menuContent}>
-          <BaseText>{nodeData.title}</BaseText>
-          {nodeData.content && <SmallText>{nodeData.content}</SmallText>}
+        <View style={styles.nodeContainer}>
+          {nodeData.title && <BaseText>{nodeData.title}</BaseText>}
+          {nodeData.content && <BaseText>{nodeData.content}</BaseText>}
         </View>
       </View>
     </TouchableHighlight>
@@ -36,29 +31,16 @@ export const TextLibraryElement = ({ nodeData, onPress }: TextLibraryElementProp
 };
 
 const styles = StyleSheet.create({
-  listMenuItem: {
-    display: "flex",
-    flexDirection: "row",
-    gap: 10,
-    alignItems: "center",
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#222",
-    width: "100%",
-  },
-  textMenuItem: {
+  nodeContainer: {
     display: "flex",
     flexDirection: "column",
     gap: 4,
-    alignItems: "center",
-    paddingTop: 0,
+    paddingTop: 5,
     paddingBottom: 5,
-    paddingLeft: 0,
-    paddingRight: 0,
+    paddingLeft: 10,
+    paddingRight: 10,
     width: "100%",
+    textAlign: "left",
   },
   rootImage: {
     width: 50,

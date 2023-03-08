@@ -78,7 +78,7 @@ export function LibraryPage({ navigation, route }: any) {
             );
           }}
           keyExtractor={(item) => item._id}
-          style={{ width: "100%" }}
+          style={{ width: "100%", paddingBottom: 20 }}
         />
       </Background>
     </View>
