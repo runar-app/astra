@@ -30,17 +30,24 @@ const initMessage: InitMessage = {
 
 export default function Home() {
   const [userInput, setUserInput] = useState("");
-  const [history, setHistory] = useState<string[][]>([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
-    console.log(router.query.lang);
-
     if (!router.query.lang) {
       return;
+    }
+
+    try {
+      const prevHistoryStorage = localStorage.getItem("chatHistory");
+      const historyMessages = JSON.parse(prevHistoryStorage || "[]");
+      setMessages(historyMessages);
+      return;
+    } catch (e) {
+      console.log("Error on parse history");
+      console.log(e);
     }
     const lang = router.query.lang === "ru" ? "ru" : "en";
     const initLangMessage = initMessage[lang];
@@ -95,7 +102,7 @@ export default function Home() {
       return { role: author, content: content };
     });
 
-    const requestData = { question: userInput, history: history, historyForChatModel };
+    const requestData = { question: userInput, historyForChatModel };
 
     const response = await fetch("/api/conversation", {
       method: "POST",
@@ -126,7 +133,11 @@ export default function Home() {
   };
 
   useEffect(() => {
-    setHistory([messages.map((message) => message.message)]);
+    if (!messages || messages.length < 2) {
+      return;
+    }
+    const history = JSON.stringify(messages);
+    localStorage.setItem("chatHistory", history);
   }, [messages]);
 
   return (

@@ -31,7 +31,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
   const output = await chatChain.call({
     question: body.question,
-    chat_history: body.history,
   });
 
   res.status(200).json({ result: { text: output.text } });
