@@ -39,7 +39,7 @@ function AssistantScreen() {
   }, []);
 
   if (!isOnline) {
-    return <SmallLoaderPage loadingTextMessage={UIMessage.loadingDataProgress} />;
+    return <SmallLoaderPage loadingTextMessage={UIMessage.waitingForInternet} />;
   }
 
   let webViewStyle = {
