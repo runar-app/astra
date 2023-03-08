@@ -26,6 +26,8 @@ interface UIMessages {
   loadingDataProgress: string;
 
   noAudiosFound: string;
+
+  appSettings: string;
 }
 
 const en: UIMessages = {
@@ -55,6 +57,8 @@ const en: UIMessages = {
   loadingDataProgress: "Loading data...",
 
   noAudiosFound: "No audios found",
+
+  appSettings: "App settings",
 };
 
 const ru: UIMessages = {
@@ -81,6 +85,8 @@ const ru: UIMessages = {
 
   loadingDataProgress: "Загружаю данные...",
   noAudiosFound: "Аудио не найдено",
+
+  appSettings: "Настройки приложения",
 };
 
 const messages: Record<SupportedLanguage, UIMessages> = {

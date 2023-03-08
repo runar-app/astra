@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, Linking, Platform } from "react-native";
 import { Background } from "../../components/Background/Background";
 import MenuButton from "../../components/Button/MenuButton";
 import { UIMessage } from "../../data/messages";
@@ -27,7 +27,15 @@ const styles = StyleSheet.create({
     height: 140,
   },
 });
+const handleOpenSettings = () => {
+  console.log("handleOpenSettings");
 
+  if (Platform.OS === "ios") {
+    Linking.openURL("app-settings:");
+  } else {
+    Linking.openSettings();
+  }
+};
 export function MenuScreen({ navigation }: any) {
   return (
     <Background>
@@ -38,6 +46,8 @@ export function MenuScreen({ navigation }: any) {
             title={UIMessage.aboutMainMenuTitle}
             onPress={() => navigation.navigate("About")}
           />
+
+          <MenuButton title={UIMessage.appSettings} onPress={() => handleOpenSettings()} />
         </View>
       </View>
     </Background>
