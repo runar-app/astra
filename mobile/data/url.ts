@@ -1,4 +1,5 @@
 import { SupportedLanguage } from "../types/Lang";
+import { currentLanguage } from "./lang";
 
 const LOCALHOST_DEBUG = false;
 
@@ -6,7 +7,7 @@ interface GetUrlProps {
   lang?: SupportedLanguage;
 }
 
-export const vikingAssistantUrl = "https://runar-viking.vercel.app/";
+export const vikingAssistantUrl = `https://runar-viking.vercel.app/?lang=${currentLanguage}`;
 
 export const getAudioListUrl = ({ lang }: GetUrlProps): string => {
   const baseUrl = LOCALHOST_DEBUG ? "http://localhost:3000/" : "https://runar-viking.vercel.app/";
