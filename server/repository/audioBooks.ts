@@ -7,7 +7,15 @@ const getParentElement = (childId: string, allNodes: LibraryNode[]): LibraryNode
   return parent || null;
 };
 
+const cache: Map<string, AudioBook[]> = new Map();
+
 export const getAudioBooks = async (lang: string): Promise<AudioBook[]> => {
+  const cacheKey = `${lang}`;
+  const cacheObject = cache.get(cacheKey);
+  if (cacheObject) {
+    console.log("Return from cache");
+    return cacheObject;
+  }
   const db = await getDB();
   const collectionName = `library_${lang}_notes`;
   const collection = db.collection<LibraryNode>(collectionName);
@@ -30,6 +38,6 @@ export const getAudioBooks = async (lang: string): Promise<AudioBook[]> => {
         language: lang,
       };
     });
-
+  cache.set(cacheKey, audios);
   return audios;
 };

@@ -2,7 +2,16 @@ import { getDB } from "../lib/mongodb";
 import { LibraryNode } from "../../common/LibraryNode";
 import { ObjectId } from "mongodb";
 
-export const getRootLibraryNodes = async (lang: string, id?: string): Promise<LibraryNode[]> => {
+const cache: Map<string, LibraryNode[]> = new Map();
+
+export const getRootLibraryNodes = async (lang: string): Promise<LibraryNode[]> => {
+  const cacheKey = `${lang}`;
+  const cacheObject = cache.get(cacheKey);
+  if (cacheObject) {
+    console.log("Return from cache getRootLibraryNodes");
+    return cacheObject;
+  }
+
   const db = await getDB();
   const collectionName = `library_${lang}_notes`;
   const collection = db.collection<LibraryNode>(collectionName);
@@ -14,6 +23,13 @@ export const getChildLibraryNodes = async (
   lang: string,
   parentId: string
 ): Promise<LibraryNode[]> => {
+  const cacheKey = `${lang}${parentId}`;
+  const cacheObject = cache.get(cacheKey);
+  if (cacheObject) {
+    console.log("Return from cache getChildLibraryNodes");
+    return cacheObject;
+  }
+
   const db = await getDB();
   const collectionName = `library_${lang}_notes`;
   const collection = db.collection<LibraryNode>(collectionName);
@@ -39,6 +55,6 @@ export const getChildLibraryNodes = async (
     }
     childNodesClear.push(node);
   });
-
+  cache.set(cacheKey, childNodesClear);
   return childNodesClear;
 };
