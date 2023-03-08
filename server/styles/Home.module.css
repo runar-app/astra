@@ -23,7 +23,7 @@
   border-radius: 10px 0 0 10px;
   border: 1px solid #3d3530;
   border-right: none;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.95);
   color: #f1ecec;
   outline: none;
 }
@@ -72,12 +72,9 @@
 .messagelist {
   width: 100%;
   height: auto;
-  max-height: 100%;
-  overflow-y: auto;
   border-radius: 0.5rem;
   overflow-wrap: break-word;
-  display: flex;
-  flex-direction: column;
+  padding-bottom: 80px;
 }
 
 .messagelistloading {
