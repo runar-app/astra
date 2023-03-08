@@ -27,6 +27,7 @@ export const getAudioBooks = async (lang: string): Promise<AudioBook[]> => {
         coverImgUrl: node.imageUrl,
         category: parent?.title || "",
         author: "Roman Volkov",
+        language: lang,
       };
     });
 

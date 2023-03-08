@@ -18,4 +18,7 @@ export interface AudioBook {
 
   // Author of the voice acting: Alexander Sparrow, AI, etc.
   author: string;
+
+  // Language of the book: en, ru, etc.
+  language: string;
 }
