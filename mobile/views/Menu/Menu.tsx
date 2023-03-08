@@ -1,7 +1,8 @@
 import * as React from "react";
-import { Button, Text, View, StyleSheet, Image, ScrollView } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import { Background } from "../../components/Background/Background";
 import MenuButton from "../../components/Button/MenuButton";
+import { UIMessage } from "../../data/messages";
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -33,7 +34,10 @@ export function MenuScreen({ navigation }: any) {
       <View style={styles.mainContainer}>
         <Image style={styles.image} source={require("../../assets/illustrations/boat.png")} />
         <View style={styles.menuContainer}>
-          <MenuButton title="About" onPress={() => navigation.navigate("About")} />
+          <MenuButton
+            title={UIMessage.aboutMainMenuTitle}
+            onPress={() => navigation.navigate("About")}
+          />
         </View>
       </View>
     </Background>

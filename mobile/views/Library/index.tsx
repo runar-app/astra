@@ -44,11 +44,11 @@ function LibraryDetails({ navigation, route }: any) {
   }, [isOnline]);
 
   if (!isOnline) {
-    return <SmallLoaderPage loadingTextMessage="Waiting for internet connection..." />;
+    return <SmallLoaderPage loadingTextMessage={UIMessage.waitingForInternet} />;
   }
 
   if (loading) {
-    return <SmallLoaderPage loadingTextMessage="Loading data..." />;
+    return <SmallLoaderPage loadingTextMessage={UIMessage.loadingDataProgress} />;
   }
 
   return (

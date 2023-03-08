@@ -49,11 +49,11 @@ function AudioScreen({ navigation }: any) {
   }, [isOnline]);
 
   if (!isOnline) {
-    return <SmallLoaderPage loadingTextMessage="Waiting for internet connection..." />;
+    return <SmallLoaderPage loadingTextMessage={UIMessage.waitingForInternet} />;
   }
 
   if (loading) {
-    return <SmallLoaderPage loadingTextMessage="Loading data..." />;
+    return <SmallLoaderPage loadingTextMessage={UIMessage.loadingDataProgress} />;
   }
 
   return (
@@ -66,7 +66,7 @@ function AudioScreen({ navigation }: any) {
       }}
     >
       <Background>
-        {audios.length === 0 && <BaseText>No audios found</BaseText>}
+        {audios.length === 0 && <BaseText>{UIMessage.noAudiosFound}</BaseText>}
         <FlatList
           data={audios}
           renderItem={({ item }) => {
@@ -115,7 +115,7 @@ function MediaPlayerScreen() {
   }, [isOnline]);
 
   if (!isOnline) {
-    return <SmallLoaderPage loadingTextMessage="Waiting for internet connection..." />;
+    return <SmallLoaderPage loadingTextMessage={UIMessage.waitingForInternet} />;
   }
 
   return <MusicPlayer />;

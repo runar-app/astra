@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, StatusBar, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { WebView } from "react-native-webview";
 import { UIMessage } from "../../data/messages";
@@ -39,7 +39,7 @@ function AssistantScreen() {
   }, []);
 
   if (!isOnline) {
-    return <SmallLoaderPage loadingTextMessage="Loading assistant..." />;
+    return <SmallLoaderPage loadingTextMessage={UIMessage.loadingDataProgress} />;
   }
 
   let webViewStyle = {
@@ -57,7 +57,7 @@ function AssistantScreen() {
     <>
       {loading && (
         <View style={{ height: "100%" }}>
-          <SmallLoaderPage loadingTextMessage="Waiting for internet connection..." />
+          <SmallLoaderPage loadingTextMessage={UIMessage.waitingForInternet} />
         </View>
       )}
       <WebView textZoom={100} source={{ uri: vikingAssistantUrl }} style={webViewStyle} />

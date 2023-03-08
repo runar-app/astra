@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
   },
 
   tag: {
-    backgroundColor: Colors.tagsBackground,
     borderColor: Colors.tagsBorder,
     borderWidth: 1,
     borderRadius: 5,

@@ -13,20 +13,48 @@ interface UIMessages {
 
   audioPageTitle: string;
   audioMainMenuTitle: string;
+
+  aboutPageTitle: string;
+  aboutMainMenuTitle: string;
+
+  aboutLine1: string;
+  aboutLine2: string;
+  aboutLine3: string;
+  aboutLine4: string;
+
+  waitingForInternet: string;
+  loadingDataProgress: string;
+
+  noAudiosFound: string;
 }
 
 const en: UIMessages = {
-  libraryPageTitle: "Библиотека",
-  libraryMainMenuTitle: "Библиотека",
+  libraryPageTitle: "Library",
+  libraryMainMenuTitle: "Library",
 
-  assistantPageTitle: "Викинг",
-  assistantMainMenuTitle: "Ассистент",
+  assistantPageTitle: "Viking",
+  assistantMainMenuTitle: "Viking",
 
-  menuPageTitle: "Меню",
-  menuMainMenuTitle: "Меню",
+  menuPageTitle: "Menu",
+  menuMainMenuTitle: "Menu",
 
-  audioPageTitle: "Аудио",
-  audioMainMenuTitle: "Аудио",
+  audioPageTitle: "Audio",
+  audioMainMenuTitle: "Audio",
+
+  aboutPageTitle: "About",
+  aboutMainMenuTitle: "About",
+
+  aboutLine1: "Application Version 1.0",
+  aboutLine2:
+    "Runar Astra is an application with a Viking assistant chatbot that can answer any questions about Scandinavian mythology.",
+  aboutLine3: "The assistant has vast knowledge about the gods, heroes, and legends.",
+  aboutLine4:
+    "The app also contains audio stories about battles of the gods and Viking adventures.",
+
+  waitingForInternet: "Waiting for internet connection...",
+  loadingDataProgress: "Loading data...",
+
+  noAudiosFound: "No audios found",
 };
 
 const ru: UIMessages = {
@@ -41,6 +69,18 @@ const ru: UIMessages = {
 
   audioPageTitle: "Аудио",
   audioMainMenuTitle: "Аудио",
+
+  aboutPageTitle: "О приложении",
+  aboutMainMenuTitle: "О приложении",
+  aboutLine1: "Версия приложения 1.0",
+  aboutLine2: `Runar Astra — это приложение с викинг-помощником, чат-ботом ассистентом, который может ответить на любой вопрос о скандинавской мифологии.`,
+  aboutLine3: "Помощник обладает огромным знанием о богах, героях и сказаниях.",
+  aboutLine4: "Приложение также содержит аудиосказки о битвах богов и приключениях викингов.",
+
+  waitingForInternet: "Ожидаю интернет..",
+
+  loadingDataProgress: "Загружаю данные...",
+  noAudiosFound: "Аудио не найдено",
 };
 
 const messages: Record<SupportedLanguage, UIMessages> = {
