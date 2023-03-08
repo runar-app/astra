@@ -15,16 +15,14 @@ export default function Home() {
     },
   ]);
 
-  const messageListRef = useRef<HTMLDivElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     const scrollDown = () => {
-      const messageList = messageListRef.current;
-      if (!messageList) {
-        return;
-      }
-      messageList.scrollTop = messageList.scrollHeight;
+      console.log("document scroll down");
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = document.documentElement.clientHeight;
+      window.scrollTo(0, scrollHeight - clientHeight);
     };
     scrollDown();
 
@@ -107,78 +105,75 @@ export default function Home() {
         <meta name="theme-color" content="#070809" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className={styles.cloud}>
-          <div ref={messageListRef} className={styles.messagelist}>
-            {messages.map((message, index) => {
-              return (
-                // The latest message sent by the user will be animated while waiting for a response
-                <div
-                  key={index}
-                  className={
-                    message.type === "userMessage" && loading && index === messages.length - 1
-                      ? styles.usermessagewaiting
-                      : message.type === "apiMessage"
-                      ? styles.apimessage
-                      : styles.usermessage
-                  }
-                >
-                  {/* Display the correct icon depending on the message type */}
-                  {message.type === "apiMessage" ? (
-                    <Image
-                      src="/parroticon.png"
-                      alt="AI"
-                      width="30"
-                      height="30"
-                      className={styles.boticon}
-                      priority={true}
-                    />
-                  ) : (
-                    <Image
-                      src="/usericon.png"
-                      alt="Me"
-                      width="30"
-                      height="30"
-                      className={styles.usericon}
-                      priority={true}
-                    />
-                  )}
-                  <div className={styles.markdownanswer}>{message.message}</div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <form
-          className={styles.cloudform}
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit();
-          }}
-        >
-          <textarea
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && userInput) {
-                if (!e.shiftKey && userInput && !loading) {
-                  e.preventDefault();
-                  handleSubmit();
-                }
-              } else if (e.key === "Enter") {
-                e.preventDefault();
+      <div className={styles.messagelist}>
+        {messages.map((message, index) => {
+          return (
+            // The latest message sent by the user will be animated while waiting for a response
+            <div
+              key={index}
+              className={
+                message.type === "userMessage" && loading && index === messages.length - 1
+                  ? styles.usermessagewaiting
+                  : message.type === "apiMessage"
+                  ? styles.apimessage
+                  : styles.usermessage
               }
-            }}
-            ref={textAreaRef}
-            autoFocus={true}
-            id="userInput"
-            name="userInput"
-            placeholder={loading ? "Waiting for response..." : "Type your question..."}
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
-            className={styles.textarea}
-          />
-          <SendButton loading={loading} onSubmit={handleSubmit} />
-        </form>
-      </main>
+            >
+              {/* Display the correct icon depending on the message type */}
+              {message.type === "apiMessage" ? (
+                <Image
+                  src="/parroticon.png"
+                  alt="AI"
+                  width="30"
+                  height="30"
+                  className={styles.boticon}
+                  priority={true}
+                />
+              ) : (
+                <Image
+                  src="/usericon.png"
+                  alt="Me"
+                  width="30"
+                  height="30"
+                  className={styles.usericon}
+                  priority={true}
+                />
+              )}
+              <div className={styles.markdownanswer}>{message.message}</div>
+            </div>
+          );
+        })}
+      </div>
+      <form
+        className={styles.form}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit();
+        }}
+      >
+        <textarea
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && userInput) {
+              if (!e.shiftKey && userInput && !loading) {
+                e.preventDefault();
+                handleSubmit();
+              }
+            } else if (e.key === "Enter") {
+              e.preventDefault();
+            }
+          }}
+          ref={textAreaRef}
+          autoFocus={true}
+          id="userInput"
+          name="userInput"
+          placeholder={loading ? "Waiting for response..." : "Type your question..."}
+          value={userInput}
+          onChange={(e) => setUserInput(e.target.value)}
+          className={styles.textarea}
+        />
+        <SendButton loading={loading} onSubmit={handleSubmit} />
+      </form>
+      <div className="bg"></div>
     </>
   );
 }
