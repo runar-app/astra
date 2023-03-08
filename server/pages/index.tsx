@@ -3,17 +3,50 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import { SendButton } from "../components/SendButton";
+import { useRouter } from "next/router";
+
+interface Message {
+  message: string;
+  type: "userMessage" | "apiMessage";
+}
+
+interface InitMessage {
+  en: Message;
+  ru: Message;
+}
+
+const initMessage: InitMessage = {
+  ru: {
+    message:
+      "Приветствую тебя! Готов помочь, сколько бы сил и мужества этого не стоило! Меня зовут Астра. Как твоё имя?",
+    type: "apiMessage",
+  },
+  en: {
+    message:
+      "Greetings! Ready to help, no matter how much strength and courage it costs! My name is Astra. What is your name?",
+    type: "apiMessage",
+  },
+};
 
 export default function Home() {
   const [userInput, setUserInput] = useState("");
   const [history, setHistory] = useState<string[][]>([]);
   const [loading, setLoading] = useState(false);
-  const [messages, setMessages] = useState([
-    {
-      message: "Приветствую тебя! Готов помочь, сколько бы сил и мужества этого не стоило!",
-      type: "apiMessage",
-    },
-  ]);
+  const router = useRouter();
+
+  const [messages, setMessages] = useState<Message[]>([]);
+
+  useEffect(() => {
+    console.log(router.query.lang);
+
+    if (!router.query.lang) {
+      return;
+    }
+    const lang = router.query.lang === "ru" ? "ru" : "en";
+    const initLangMessage = initMessage[lang];
+
+    setMessages([initLangMessage]);
+  }, [router.query.lang]);
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
