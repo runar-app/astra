@@ -17,7 +17,7 @@
       "**/*"
     ],
     "ios": {
-      "buildNumber": "23",
+      "buildNumber": "26",
       "supportsTablet": true,
       "backgroundColor": "#222222",
       "userInterfaceStyle": "dark",
@@ -37,7 +37,7 @@
       "backgroundColor": "#222222"
     },
     "android": {
-      "versionCode": 23,
+      "versionCode": 26,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#222222"
