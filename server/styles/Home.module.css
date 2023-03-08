@@ -85,7 +85,7 @@
 }
 
 .usermessage {
-  background: #090707;
+  background: rgba(239, 205, 147, 0.043);
   color: #ececf1;
   overflow-wrap: break-word;
 }
@@ -94,8 +94,8 @@
 }
 
 .usermessagewaiting {
-  color: #f1edec;
-  background: linear-gradient(to left, #090707, #201c1a, #090807);
+  color: #f1edecb9;
+  background: linear-gradient(to left, rgba(9, 7, 7, 0.802), rgba(32, 28, 26), rgba(9, 8, 7, 0.82));
   background-size: 200% 200%;
   background-position: -100% 0;
   animation: loading-gradient 2s ease-in-out infinite;
@@ -113,7 +113,7 @@
 }
 
 .apimessage {
-  background: #191514;
+  background: rgba(25, 21, 20, 0.571);
   color: #f1edec;
   animation: fadein 0.5s;
 }

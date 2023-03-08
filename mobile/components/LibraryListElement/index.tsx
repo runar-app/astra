@@ -4,6 +4,7 @@ import { BaseText } from "../Typography/BaseText";
 import { LibraryNode } from "../../../common/LibraryNode";
 import { SmallText } from "../Typography/SmallText";
 import { RuneLibraryListElement } from "./RuneLibraryListElement";
+import { TextLibraryElement } from "./TextLibraryElement";
 
 interface LibraryListElementProps {
   nodeData: LibraryNode;
@@ -14,15 +15,18 @@ interface LibraryListElementProps {
 export const LibraryListElement = ({ nodeData, onPress }: LibraryListElementProps) => {
   const type = nodeData.type;
   const textNode = ["plainText", "poem", "rune"].includes(type);
-  const containerStyle = textNode ? styles.textMenuItem : styles.listMenuItem;
 
   if (type === "rune") {
     return <RuneLibraryListElement nodeData={nodeData} onPress={onPress} />;
   }
 
+  if (textNode) {
+    return <TextLibraryElement nodeData={nodeData} onPress={onPress} />;
+  }
+
   return (
     <TouchableHighlight onPress={onPress} underlayColor="rgba(0,0,0,0.3)">
-      <View style={containerStyle}>
+      <View style={styles.listMenuItem}>
         {nodeData.imageUrl && (
           <Image
             style={styles.rootImage}
@@ -52,17 +56,6 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     borderBottomWidth: 1,
     borderBottomColor: "#222",
-    width: "100%",
-  },
-  textMenuItem: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 4,
-    alignItems: "center",
-    paddingTop: 0,
-    paddingBottom: 5,
-    paddingLeft: 0,
-    paddingRight: 0,
     width: "100%",
   },
   rootImage: {

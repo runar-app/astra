@@ -3,7 +3,7 @@ import { FlatList, View } from "react-native";
 import { LibraryNode } from "../../../common/LibraryNode";
 import { getLibraryNodes } from "../../services/library";
 import { SmallLoaderPage } from "../../components/Loader/SmallLoaderPage";
-import { LibraryListElement } from "../../components/LibraryListElement/LibraryListElement";
+import { LibraryListElement } from "../../components/LibraryListElement";
 import { Background } from "../../components/Background/Background";
 import { UIMessage } from "../../data/messages";
 import NetInfo from "@react-native-community/netinfo";
