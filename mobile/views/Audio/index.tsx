@@ -10,6 +10,7 @@ import { UIMessage } from "../../data/messages";
 import MusicPlayer from "../../components/MusicPlayer/MusicPlayer";
 import NetInfo from "@react-native-community/netinfo";
 import { useTrackPlayerEvents, Event } from "react-native-track-player";
+import { BaseText } from "../../components/Typography/BaseText";
 
 function AudioScreen({ navigation }: any) {
   const [audios, setAudios] = React.useState<AudioBook[]>([]);
@@ -41,7 +42,7 @@ function AudioScreen({ navigation }: any) {
     }
     setLoading(true);
     (async () => {
-      const audios = await getListOfAudios({ lang: "ru" });
+      const audios = await getListOfAudios();
       setAudios(audios);
       setLoading(false);
     })();
@@ -65,6 +66,7 @@ function AudioScreen({ navigation }: any) {
       }}
     >
       <Background>
+        {audios.length === 0 && <BaseText>No audios found</BaseText>}
         <FlatList
           data={audios}
           renderItem={({ item }) => {

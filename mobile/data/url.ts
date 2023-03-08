@@ -17,15 +17,9 @@ export const getAudioListUrl = ({ lang }: GetUrlProps): string => {
 interface GetLibraryUrlProps extends GetUrlProps {
   id?: string;
 }
-export const getLibraryUrl = ({ id }: GetLibraryUrlProps): string => {
-  const baseUrl = LOCALHOST_DEBUG
-    ? "http://localhost:3000/"
-    : "https://runar-java-back.herokuapp.com/";
-
-  const urlPars = [baseUrl, "api/v2/"];
-  if (id) {
-    urlPars.push(id);
-  }
+export const getLibraryUrl = ({ id, lang }: GetLibraryUrlProps): string => {
+  const baseUrl = LOCALHOST_DEBUG ? "http://localhost:3000/" : "https://runar-viking.vercel.app/";
+  const urlPars = [baseUrl, "api/v3/library?lang=", lang, "&id=", id];
   const fullUrl = urlPars.join("");
   return fullUrl;
 };

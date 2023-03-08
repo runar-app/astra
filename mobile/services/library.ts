@@ -8,19 +8,20 @@ interface GetRootLibraryNodesProps {
   id?: string;
 }
 
-const cache: Record<string, LibraryNode[]> = {};
-
+const cache: Map<string, Promise<LibraryNode[]>> = new Map();
 /*
 https://runar-java-back.herokuapp.com/api/v2/
 
 https://runar-java-back.herokuapp.com/api/v2/6063944687bafbb125aefdeb
 */
+
 export const getLibraryNodes = async ({ lang, id }: GetRootLibraryNodesProps = {}): Promise<
   LibraryNode[]
 > => {
   const cacheKey = `${lang || currentLanguage}${id || "root"}`;
-  if (cache[cacheKey]) {
-    return cache[cacheKey];
+  const cacheObject = cache.get(cacheKey);
+  if (cacheObject) {
+    return cacheObject;
   }
 
   const url = getLibraryUrl({ lang: lang || currentLanguage, id });
@@ -28,12 +29,10 @@ export const getLibraryNodes = async ({ lang, id }: GetRootLibraryNodesProps = {
   try {
     let response = await fetch(url);
 
-    let responseJson = (await response.json()) as LibraryNode[];
-    if (Array.isArray(responseJson)) {
-      cache[cacheKey] = responseJson;
-      return responseJson;
-    }
-    return [];
+    let responseJson = response.json();
+    cache.set(cacheKey, responseJson);
+
+    return responseJson;
   } catch (error) {
     console.log("Error fetching audios - getRootLibraryNodes");
     console.error(error);

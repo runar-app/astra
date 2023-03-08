@@ -3,6 +3,7 @@ import { getAudioListUrl } from "../data/url";
 import { AudioBook } from "../../common/AudioBook";
 import { SupportedLanguage } from "../types/Lang";
 import TrackPlayer, { Capability, Track } from "react-native-track-player";
+import { repeatedFetcher } from "./repeatedFetcher";
 
 interface GetListOfAudiosProps {
   lang?: SupportedLanguage;
@@ -13,26 +14,24 @@ https://runar-viking.vercel.app/api/v3/audios?lang=ru
 
 https://runar-viking.vercel.app/api/v3/audios?lang=en
 */
-const cache: Record<string, AudioBook[]> = {};
+const cache: Map<string, Promise<AudioBook[]>> = new Map();
 export const getListOfAudios = async ({ lang }: GetListOfAudiosProps = {}): Promise<
   AudioBook[]
 > => {
   const cacheKey = `${lang || currentLanguage}${"root"}`;
-  if (cache[cacheKey]) {
-    return cache[cacheKey];
+
+  const cacheObject = cache.get(cacheKey);
+  if (cacheObject) {
+    return cacheObject;
   }
 
   const url = getAudioListUrl({ lang: lang || currentLanguage });
 
   try {
-    let response = await fetch(url);
+    const responseJson = repeatedFetcher(url);
 
-    let responseJson = (await response.json()) as AudioBook[];
-    if (Array.isArray(responseJson)) {
-      cache[cacheKey] = responseJson;
-      return responseJson;
-    }
-    return [];
+    cache.set(cacheKey, responseJson);
+    return responseJson;
   } catch (error) {
     console.log("Error fetching audios - getListOfAudios");
     console.error(error);
@@ -41,7 +40,7 @@ export const getListOfAudios = async ({ lang }: GetListOfAudiosProps = {}): Prom
 };
 
 export const getCurrentPlayedAudio = async () => {
-  const audios = await getListOfAudios({ lang: "ru" });
+  const audios = await getListOfAudios();
 
   let trackIndex = await TrackPlayer.getCurrentTrack();
   if (trackIndex === null) {
@@ -72,7 +71,7 @@ const convertAudioSourceToTrack = (audioSource: AudioBook): Track => {
 };
 
 export const playTrack = async (audioSourceId: string) => {
-  const audioSources = await getListOfAudios({ lang: "ru" });
+  const audioSources = await getListOfAudios();
   const sourceAudioIndex = audioSources.findIndex(
     (audioSource) => audioSource._id === audioSourceId
   );
@@ -98,7 +97,7 @@ export const playTrack = async (audioSourceId: string) => {
 };
 
 export const playNextTrack = async () => {
-  const audioSources = await getListOfAudios({ lang: "ru" });
+  const audioSources = await getListOfAudios();
   const currentTrack = await getCurrentPlayedAudio();
   if (!currentTrack) {
     return;
@@ -115,7 +114,7 @@ export const playNextTrack = async () => {
 };
 
 export const playPrevTrack = async () => {
-  const audioSources = await getListOfAudios({ lang: "ru" });
+  const audioSources = await getListOfAudios();
   const currentTrack = await getCurrentPlayedAudio();
   if (!currentTrack) {
     return;

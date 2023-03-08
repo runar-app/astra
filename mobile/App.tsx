@@ -13,6 +13,8 @@ import AudioIcon from "./icons/AudioIcon";
 import { UIMessage } from "./data/messages";
 import "expo-dev-client";
 import TrackPlayer, { Capability } from "react-native-track-player";
+import { getListOfAudios } from "./services/audios";
+import { getLibraryNodes } from "./services/library";
 
 const Tab = createBottomTabNavigator();
 
@@ -21,6 +23,8 @@ export default function App() {
     console.log("Init App");
     (async () => {
       console.log("Init: Before Player init");
+      getListOfAudios();
+      getLibraryNodes();
       try {
         await TrackPlayer.setupPlayer();
         await TrackPlayer.updateOptions({
