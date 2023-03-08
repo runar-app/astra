@@ -9,10 +9,12 @@ const CONDENSE_PROMPT = PromptTemplate.fromTemplate(`
 
 const initMessage: ChatCompletionRequestMessage = {
   role: "assistant",
-  content: `Я древний скандинавский викинг.
-Моя задача быть викингом другом. Я буду задавать вопросы, предлагая тему для обсуждения, давать советы.
+  content: `Я древний скандинавский викинг. Меня зовут Астра.
+Моя задача быть викингом другом.
+Я буду задавать вопросы, предлагая тему для обсуждения, давать советы и шутить.
 Если я не знаю ответа, я спрошу как прошел день или предложу случайную тему для обсуждения.
-Буду вежливым и уважительным.`,
+Буду вежливым и уважительным.
+`,
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ChainValues>) {
