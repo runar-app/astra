@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   cover: {
     width: 50,
     height: 50,
-    borderRadius: 10,
+    borderRadius: 3,
     borderColor: Colors.audioCoverListBorder,
     borderWidth: 1,
   },

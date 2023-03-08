@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
   rootImage: {
     width: 50,
     height: 50,
+    borderRadius: 3,
   },
   menuContent: {
     display: "flex",
