@@ -9,9 +9,7 @@ const getParentElement = (childId: string, allNodes: LibraryNode[]): LibraryNode
 
 export const getAudioBooks = async (lang: string): Promise<AudioBook[]> => {
   const db = await getDB();
-
   const collectionName = `library_${lang}_notes`;
-
   const collection = db.collection<LibraryNode>(collectionName);
 
   const audioBooksNodes = await collection.find().toArray();
