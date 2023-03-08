@@ -57,7 +57,7 @@ function AssistantScreen() {
     <>
       {loading && (
         <View style={{ height: "100%" }}>
-          <SmallLoaderPage loadingTextMessage={UIMessage.waitingForInternet} />
+          <SmallLoaderPage loadingTextMessage={UIMessage.loadingDataProgress} />
         </View>
       )}
       <WebView textZoom={100} source={{ uri: vikingAssistantUrl }} style={webViewStyle} />
