@@ -15,6 +15,13 @@ import "expo-dev-client";
 import TrackPlayer, { Capability } from "react-native-track-player";
 import { getListOfAudios } from "./services/audios";
 import { getLibraryNodes } from "./services/library";
+import Purchases from "react-native-purchases";
+import { Platform } from "react-native";
+
+const APIKeys = {
+  apple: "appl_MObHISArQwLQaYOBUxHMxRjqIjw",
+  google: "goog_cTnGpVxqCunXxnLFrEsnaBxNKrE",
+};
 
 const Tab = createBottomTabNavigator();
 
@@ -25,6 +32,28 @@ export default function App() {
       console.log("Init: Before Player init");
       getListOfAudios();
       getLibraryNodes();
+
+      if (Platform.OS == "android") {
+        Purchases.configure({ apiKey: APIKeys.google });
+      } else {
+        Purchases.configure({ apiKey: APIKeys.apple });
+      }
+
+      /*
+      const fetchData = async () => {
+        try {
+          console.log("Offers: request started");
+          const offerings = await Purchases.getOfferings();
+          console.log("Offerings: ");
+          console.log(offerings);
+        } catch (e) {
+          console.log("Error in fetching offers");
+          console.log(e);
+        }
+      };
+      fetchData();
+      */
+
       try {
         await TrackPlayer.setupPlayer();
         await TrackPlayer.updateOptions({
