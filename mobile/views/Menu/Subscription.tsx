@@ -5,7 +5,6 @@ import { UIMessage } from "../../data/messages";
 import { BaseText } from "../../components/Typography/BaseText";
 import PrimaryButton from "../../components/Button/PrimaryButton";
 import Purchases, { CustomerInfo, PurchasesPackage } from "react-native-purchases";
-import AlertButton from "../../components/Button/AlertButton";
 import { Colors } from "../../commonStyle";
 import { SmallText } from "../../components/Typography/SmallText";
 import LinkButton from "../../components/Button/LinkButton";
