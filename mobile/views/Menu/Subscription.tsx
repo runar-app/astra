@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert, ScrollView } from "react-native";
 import { Background } from "../../components/Background/Background";
 import { UIMessage } from "../../data/messages";
 import { BaseText } from "../../components/Typography/BaseText";
@@ -121,46 +121,50 @@ export function SubscriptionScreen() {
 
   return (
     <Background>
-      <View style={styles.page}>
-        <BaseText>{UIMessage.subscriptionMainInfo1}</BaseText>
-        <BaseText>{UIMessage.subscriptionMainInfo2}</BaseText>
-        <BaseText>{UIMessage.subscriptionMainInfo3}</BaseText>
-        <BaseText>{UIMessage.subscriptionMainInfo4}</BaseText>
-        {!isPayed && (
-          <>
-            {purchasesPackages.map((item, index) => {
-              return (
-                <View
-                  key={index}
-                  style={{
-                    borderWidth: 1,
-                    borderColor: Colors.primary,
-                    borderRadius: 10,
-                    padding: 10,
-                    display: "flex",
-                    gap: 15,
-                  }}
-                >
-                  <BaseText center>{item.product.description}</BaseText>
-                  <SmallText center>{item.product.title}</SmallText>
-                  <PrimaryButton
-                    title={`${UIMessage.subscriptionPay} • ${item.product.priceString}`}
-                    onPress={() => paySubscription(item)}
-                  />
-                </View>
-              );
-            })}
-          </>
-        )}
+      <ScrollView>
+        <View style={styles.page}>
+          <BaseText>{UIMessage.subscriptionMainInfo1}</BaseText>
+          <BaseText>{UIMessage.subscriptionMainInfo2}</BaseText>
+          <BaseText>{UIMessage.subscriptionMainInfo3}</BaseText>
+          <BaseText>{UIMessage.subscriptionMainInfo4}</BaseText>
+          {!isPayed && (
+            <>
+              {purchasesPackages.map((item, index) => {
+                return (
+                  <View
+                    key={index}
+                    style={{
+                      borderWidth: 1,
+                      borderColor: Colors.primary,
+                      borderRadius: 10,
+                      padding: 10,
+                      display: "flex",
+                      gap: 15,
+                    }}
+                  >
+                    {item.product.description && (
+                      <BaseText center>{item.product.description}</BaseText>
+                    )}
+                    {item.product.title && <SmallText center>{item.product.title}</SmallText>}
+                    <PrimaryButton
+                      title={`${UIMessage.subscriptionPay} • ${item.product.priceString}`}
+                      onPress={() => paySubscription(item)}
+                    />
+                  </View>
+                );
+              })}
+            </>
+          )}
 
-        {isPayed && (
-          <>
-            <BaseText>{UIMessage.subscriptionPaymentCompleted}</BaseText>
-          </>
-        )}
+          {isPayed && (
+            <>
+              <BaseText>{UIMessage.subscriptionPaymentCompleted}</BaseText>
+            </>
+          )}
 
-        <LinkButton title={UIMessage.POCAndTerms} href="https://runar.app/privacy" />
-      </View>
+          <LinkButton title={UIMessage.POCAndTerms} href="https://runar.app/privacy" />
+        </View>
+      </ScrollView>
     </Background>
   );
 }
