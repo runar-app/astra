@@ -1,12 +1,13 @@
 import * as React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import { Background } from "../../components/Background/Background";
 import { UIMessage } from "../../data/messages";
 import { BaseText } from "../../components/Typography/BaseText";
 import PrimaryButton from "../../components/Button/PrimaryButton";
-import SecondaryButton from "../../components/Button/SecondaryButton";
-import Purchases from "react-native-purchases";
+import Purchases, { PurchasesPackage } from "react-native-purchases";
 import AlertButton from "../../components/Button/AlertButton";
+import { Colors } from "../../commonStyle";
+import { SmallText } from "../../components/Typography/SmallText";
 import LinkButton from "../../components/Button/LinkButton";
 
 const styles = StyleSheet.create({
@@ -21,52 +22,44 @@ const styles = StyleSheet.create({
 
 export function SubscriptionScreen() {
   const [isPayed, setIsPayed] = React.useState(false);
-  const [currentSubscriptionType, setCurrentSubscriptionType] = React.useState("");
+  const [purchasesPackages, setPurchasesPackages] = React.useState<PurchasesPackage[]>([]);
 
   const stopSubscription = async () => {
     try {
       console.log("Stop subscription: request started");
       setIsPayed(false);
-      setCurrentSubscriptionType("");
     } catch (e) {
       console.log("Error in stopping subscription");
       console.log(e);
+      Alert.alert(`Error in stopping subscription`);
     }
   };
 
-  const payWeeklySubscription = async () => {
+  const syncSubscription = async () => {
     try {
-      console.log("Pay weekly subscription: request started");
-      console.log("Pay weekly subscription: request finished");
-      setIsPayed(true);
-      setCurrentSubscriptionType(UIMessage.weekly);
+      console.log("Sync subscription: request started");
+      const purchaserInfo = await Purchases.getCustomerInfo();
+      console.log("purchaserInfo");
+      console.log(purchaserInfo);
+      setIsPayed(purchaserInfo.activeSubscriptions.length > 0);
     } catch (e) {
-      console.log("Error in paying weekly subscription");
+      console.log("Error in syncing subscription");
       console.log(e);
+      Alert.alert(`Error in syncing subscription`);
     }
   };
 
-  const payMonthlySubscription = async () => {
+  const paySubscription = async (packageItem: PurchasesPackage) => {
     try {
-      console.log("Pay weekly subscription: request started");
-      console.log("Pay weekly subscription: request finished");
-      setIsPayed(true);
-      setCurrentSubscriptionType(UIMessage.monthly);
+      console.log("Pay  subscription: request started");
+      console.log("Pay  subscription: request finished");
+      console.log(packageItem);
+      await Purchases.purchasePackage(packageItem);
+      syncSubscription();
     } catch (e) {
-      console.log("Error in paying weekly subscription");
+      console.log("Error in paying subscription");
       console.log(e);
-    }
-  };
-
-  const payYearlySubscription = async () => {
-    try {
-      console.log("Pay weekly subscription: request started");
-      console.log("Pay weekly subscription: request finished");
-      setIsPayed(true);
-      setCurrentSubscriptionType(UIMessage.yearly);
-    } catch (e) {
-      console.log("Error in paying weekly subscription");
-      console.log(e);
+      Alert.alert(`Error in paying subscription`);
     }
   };
 
@@ -76,16 +69,31 @@ export function SubscriptionScreen() {
         console.log("Offers: request started");
         const offerings = await Purchases.getOfferings();
         console.log("Offerings: ");
-        console.log(offerings);
-        console.log("Offers: request finished");
+        console.log(JSON.stringify(offerings));
+        console.log("Offers: request finished2");
+
+        if (offerings.current === null) {
+          console.log("offerings.current is null");
+          return;
+        }
+        if (!offerings.current.availablePackages) {
+          return;
+        }
+        const packages: PurchasesPackage[] = [];
+        offerings.current.availablePackages.forEach((item) => {
+          console.log("item");
+          console.log(item);
+          packages.push(item);
+        });
+        setPurchasesPackages(packages);
+        syncSubscription();
       } catch (e) {
         console.log("Error in fetching offers");
         console.log(e);
+        Alert.alert(`Error in fetching offers`);
       }
     };
-    setTimeout(() => {
-      fetchData();
-    }, 2000);
+    fetchData();
   }, []);
 
   return (
@@ -97,27 +105,34 @@ export function SubscriptionScreen() {
         <BaseText>{UIMessage.subscriptionMainInfo4}</BaseText>
         {!isPayed && (
           <>
-            <PrimaryButton
-              title={`${UIMessage.subscriptionPay} - $7 ${UIMessage.monthly}`}
-              onPress={payMonthlySubscription}
-            />
-            <SecondaryButton
-              title={`${UIMessage.subscriptionPay} - $7 ${UIMessage.weekly}`}
-              onPress={payWeeklySubscription}
-            />
-            <SecondaryButton
-              title={`${UIMessage.subscriptionPay} - $7 ${UIMessage.yearly}`}
-              onPress={payYearlySubscription}
-            />
+            {purchasesPackages.map((item, index) => {
+              return (
+                <View
+                  key={index}
+                  style={{
+                    borderWidth: 1,
+                    borderColor: Colors.primary,
+                    borderRadius: 10,
+                    padding: 10,
+                    display: "flex",
+                    gap: 15,
+                  }}
+                >
+                  <BaseText center>{item.product.description}</BaseText>
+                  <SmallText center>{item.product.title}</SmallText>
+                  <PrimaryButton
+                    title={`${UIMessage.subscriptionPay} • ${item.product.priceString}`}
+                    onPress={() => paySubscription(item)}
+                  />
+                </View>
+              );
+            })}
           </>
         )}
 
         {isPayed && (
           <>
-            <AlertButton
-              title={`${UIMessage.subscriptionStop} - ${currentSubscriptionType}`}
-              onPress={stopSubscription}
-            />
+            <AlertButton title={`${UIMessage.subscriptionStop}`} onPress={stopSubscription} />
           </>
         )}
 
