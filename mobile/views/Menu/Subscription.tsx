@@ -4,7 +4,7 @@ import { Background } from "../../components/Background/Background";
 import { UIMessage } from "../../data/messages";
 import { BaseText } from "../../components/Typography/BaseText";
 import PrimaryButton from "../../components/Button/PrimaryButton";
-import Purchases, { PurchasesPackage } from "react-native-purchases";
+import Purchases, { CustomerInfo, PurchasesPackage } from "react-native-purchases";
 import AlertButton from "../../components/Button/AlertButton";
 import { Colors } from "../../commonStyle";
 import { SmallText } from "../../components/Typography/SmallText";
@@ -50,11 +50,16 @@ export function SubscriptionScreen() {
   };
 
   React.useEffect(() => {
-    Purchases.addCustomerInfoUpdateListener((purchaserInfo) => {
+    const listener = (purchaserInfo: CustomerInfo) => {
       console.log("purchaserInfo from listener");
       console.log(purchaserInfo);
       setIsPayed(purchaserInfo.activeSubscriptions.length > 0);
-    });
+    };
+    Purchases.addCustomerInfoUpdateListener(listener);
+
+    return () => {
+      Purchases.removeCustomerInfoUpdateListener(listener);
+    };
   }, []);
 
   const paySubscription = async (packageItem: PurchasesPackage) => {

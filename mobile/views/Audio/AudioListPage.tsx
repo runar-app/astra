@@ -11,6 +11,7 @@ import { useTrackPlayerEvents, Event } from "react-native-track-player";
 import { BaseText } from "../../components/Typography/BaseText";
 import { SmallText } from "../../components/Typography/SmallText";
 import PrimaryButton from "../../components/Button/PrimaryButton";
+import Purchases, { CustomerInfo } from "react-native-purchases";
 
 export function AudioListPage({ navigation }: any) {
   const [audios, setAudios] = React.useState<AudioBook[]>([]);
@@ -18,6 +19,19 @@ export function AudioListPage({ navigation }: any) {
   const [isOnline, setIsOnline] = React.useState<boolean>(false);
   const [currentTrack, setCurrentTrack] = React.useState<AudioBook>();
   const [isPayed, setIsPayed] = React.useState(false);
+
+  React.useEffect(() => {
+    const listener = (purchaserInfo: CustomerInfo) => {
+      console.log("purchaserInfo from listener");
+      console.log(purchaserInfo);
+      setIsPayed(purchaserInfo.activeSubscriptions.length > 0);
+    };
+    Purchases.addCustomerInfoUpdateListener(listener);
+
+    return () => {
+      Purchases.removeCustomerInfoUpdateListener(listener);
+    };
+  }, []);
 
   useTrackPlayerEvents([Event.PlaybackTrackChanged], async (event) => {
     if (event.type !== Event.PlaybackTrackChanged || event.nextTrack === null) {

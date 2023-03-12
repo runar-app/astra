@@ -27,10 +27,24 @@ import {
 import AudioIcon from "../../icons/AudioIcon";
 import PrimaryButton from "../Button/PrimaryButton";
 import { UIMessage } from "../../data/messages";
+import Purchases, { CustomerInfo } from "react-native-purchases";
 
 function MusicPlayer({ navigation }: any) {
   const [currentTrack, setCurrentTrack] = useState<AudioBook>();
   const [isPayed, setIsPayed] = React.useState(false);
+
+  React.useEffect(() => {
+    const listener = (purchaserInfo: CustomerInfo) => {
+      console.log("purchaserInfo from listener");
+      console.log(purchaserInfo);
+      setIsPayed(purchaserInfo.activeSubscriptions.length > 0);
+    };
+    Purchases.addCustomerInfoUpdateListener(listener);
+
+    return () => {
+      Purchases.removeCustomerInfoUpdateListener(listener);
+    };
+  }, []);
 
   const progress = useProgress();
   const playBackState = usePlaybackState();
