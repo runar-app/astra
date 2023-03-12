@@ -4,6 +4,7 @@ import { Background } from "../../components/Background/Background";
 import { UIMessage } from "../../data/messages";
 import { BaseText } from "../../components/Typography/BaseText";
 import PrimaryButton from "../../components/Button/PrimaryButton";
+import SecondaryButton from "../../components/Button/SecondaryButton";
 
 const styles = StyleSheet.create({
   page: {
@@ -24,7 +25,15 @@ export function SubscriptionScreen() {
         <BaseText>{UIMessage.subscriptionMainInfo3}</BaseText>
         <BaseText>{UIMessage.subscriptionMainInfo4}</BaseText>
         <PrimaryButton
-          title={UIMessage.subscriptionStop}
+          title={UIMessage.subscriptionPay + " - $7 monthly"}
+          onPress={() => console.log("Subscribe")}
+        />
+        <SecondaryButton
+          title={UIMessage.subscriptionPay + " - $2 weekly"}
+          onPress={() => console.log("Subscribe")}
+        />
+        <SecondaryButton
+          title={UIMessage.subscriptionPay + " - $32 yearly"}
           onPress={() => console.log("Subscribe")}
         />
       </View>
