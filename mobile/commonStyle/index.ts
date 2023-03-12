@@ -14,6 +14,7 @@ const ColorPalette = {
   primary: "#EFCD93",
   mainTextContent: "#ffffff",
   subTextContent: "#cccccc",
+  error: "#ef9393",
 };
 
 export const Colors = {

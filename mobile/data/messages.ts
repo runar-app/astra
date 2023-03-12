@@ -36,6 +36,10 @@ interface UIMessages {
   subscriptionMainInfo4: string;
   subscriptionPay: string;
   subscriptionStop: string;
+
+  weekly: string;
+  monthly: string;
+  yearly: string;
 }
 
 const en: UIMessages = {
@@ -74,7 +78,11 @@ const en: UIMessages = {
   subscriptionMainInfo3: "• Chat bot",
   subscriptionMainInfo4: "• Library",
   subscriptionPay: "Pay",
-  subscriptionStop: "Stop",
+  subscriptionStop: "Stop subscription",
+
+  weekly: "Weekly",
+  monthly: "Monthly",
+  yearly: "Yearly",
 };
 
 const ru: UIMessages = {
@@ -109,7 +117,11 @@ const ru: UIMessages = {
   subscriptionMainInfo3: "• Чат бот",
   subscriptionMainInfo4: "• Библиотека",
   subscriptionPay: "Оплатить",
-  subscriptionStop: "Отменить",
+  subscriptionStop: "Отменить подписку",
+
+  weekly: "Еженедельно",
+  monthly: "Ежемесячно",
+  yearly: "Ежегодно",
 };
 
 const messages: Record<SupportedLanguage, UIMessages> = {

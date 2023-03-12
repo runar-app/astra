@@ -39,21 +39,6 @@ export default function App() {
         Purchases.configure({ apiKey: APIKeys.apple });
       }
 
-      const fetchData = async () => {
-        try {
-          console.log("Offers: request started");
-          const offerings = await Purchases.getOfferings();
-          console.log("Offerings: ");
-          console.log(offerings);
-        } catch (e) {
-          console.log("Error in fetching offers");
-          console.log(e);
-        }
-      };
-      setTimeout(() => {
-        //fetchData();
-      }, 2000);
-
       try {
         await TrackPlayer.setupPlayer();
         await TrackPlayer.updateOptions({
