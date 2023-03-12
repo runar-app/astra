@@ -45,6 +45,7 @@ interface UIMessages {
   getMoreAudios: string;
 
   POCAndTerms: string;
+  subscriptionPaymentCompleted: string;
 }
 
 const en: UIMessages = {
@@ -94,6 +95,8 @@ const en: UIMessages = {
   getMoreAudios: "Get more audios",
 
   POCAndTerms: "Privacy Policy & Terms of use",
+
+  subscriptionPaymentCompleted: "✅ Payment completed ✅",
 };
 
 const ru: UIMessages = {
@@ -137,6 +140,8 @@ const ru: UIMessages = {
   getFullAccess: "Получить полный доступ",
   getMoreAudios: "Получить больше аудио",
   POCAndTerms: "Политика конфиденциальности и условия использования",
+
+  subscriptionPaymentCompleted: "✅ Оплата выполнена ✅",
 };
 
 const messages: Record<SupportedLanguage, UIMessages> = {

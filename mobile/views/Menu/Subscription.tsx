@@ -40,18 +40,6 @@ export function SubscriptionScreen() {
     };
   }, []);
 
-  const stopSubscription = async () => {
-    setLoading(true);
-    try {
-      console.log("Stop subscription: request started");
-      setIsPayed(false);
-    } catch (e) {
-      console.log("Error in stopping subscription");
-      console.log(e);
-    }
-    setLoading(false);
-  };
-
   React.useEffect(() => {
     const listener = (purchaserInfo: CustomerInfo) => {
       console.log("purchaserInfo from listener");
@@ -167,7 +155,7 @@ export function SubscriptionScreen() {
 
         {isPayed && (
           <>
-            <AlertButton title={`${UIMessage.subscriptionStop}`} onPress={stopSubscription} />
+            <BaseText>{UIMessage.subscriptionPaymentCompleted}</BaseText>
           </>
         )}
 
