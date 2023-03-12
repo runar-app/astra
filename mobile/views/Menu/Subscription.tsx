@@ -49,6 +49,14 @@ export function SubscriptionScreen() {
     }
   };
 
+  React.useEffect(() => {
+    Purchases.addCustomerInfoUpdateListener((purchaserInfo) => {
+      console.log("purchaserInfo from listener");
+      console.log(purchaserInfo);
+      setIsPayed(purchaserInfo.activeSubscriptions.length > 0);
+    });
+  }, []);
+
   const paySubscription = async (packageItem: PurchasesPackage) => {
     try {
       console.log("Pay  subscription: request started");
