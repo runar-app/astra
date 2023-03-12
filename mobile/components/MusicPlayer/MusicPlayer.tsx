@@ -25,9 +25,12 @@ import {
   playPrevTrack,
 } from "../../services/audios";
 import AudioIcon from "../../icons/AudioIcon";
+import PrimaryButton from "../Button/PrimaryButton";
+import { UIMessage } from "../../data/messages";
 
-function MusicPlayer() {
+function MusicPlayer({ navigation }: any) {
   const [currentTrack, setCurrentTrack] = useState<AudioBook>();
+  const [isPayed, setIsPayed] = React.useState(false);
 
   const progress = useProgress();
   const playBackState = usePlaybackState();
@@ -74,7 +77,13 @@ function MusicPlayer() {
           <AudioControlButton
             icon={<AudioPrevIcon color={Colors.audioControlButtonColor} size={30} />}
             onPress={async () => {
-              await playPrevTrack();
+              if (!isPayed) {
+                navigation.navigate("Menu Section", {
+                  screen: "Subscription",
+                });
+              } else {
+                await playNextTrack();
+              }
             }}
           />
 
@@ -93,42 +102,63 @@ function MusicPlayer() {
           <AudioControlButton
             icon={<AudioNextIcon color={Colors.audioControlButtonColor} size={30} />}
             onPress={async () => {
-              await playNextTrack();
+              if (!isPayed) {
+                navigation.navigate("Menu Section", {
+                  screen: "Subscription",
+                });
+              } else {
+                await playNextTrack();
+              }
             }}
           />
         </View>
 
-        <View style={styles.progressContainer}>
-          <SmallText>
-            {new Date(progress.position * 1000)
-              .toLocaleTimeString()
-              .substring(3)
-              .replace("AM", "")
-              .trim()}
-          </SmallText>
+        {isPayed && (
+          <>
+            <View style={styles.progressContainer}>
+              <SmallText>
+                {new Date(progress.position * 1000)
+                  .toLocaleTimeString()
+                  .substring(3)
+                  .replace("AM", "")
+                  .trim()}
+              </SmallText>
 
-          <Slider
-            style={styles.progressBar}
-            value={progress.position}
-            minimumValue={0}
-            maximumValue={progress.duration}
-            thumbTintColor="#FFD369"
-            minimumTrackTintColor="#FFD369"
-            maximumTrackTintColor="#fff"
-            onSlidingComplete={async (value) => await TrackPlayer.seekTo(value)}
+              <Slider
+                style={styles.progressBar}
+                value={progress.position}
+                minimumValue={0}
+                maximumValue={progress.duration}
+                thumbTintColor="#FFD369"
+                minimumTrackTintColor="#FFD369"
+                maximumTrackTintColor="#fff"
+                onSlidingComplete={async (value) => await TrackPlayer.seekTo(value)}
+              />
+              <SmallText>
+                {new Date((progress.duration - progress.position) * 1000)
+                  .toLocaleTimeString()
+                  .substring(3)
+                  .replace("AM", "")
+                  .trim()}
+              </SmallText>
+            </View>
+            <View style={styles.infoContainer}>
+              <BaseText center>{currentTrack?.title}</BaseText>
+              <SmallText center>{currentTrack?.category}</SmallText>
+            </View>
+          </>
+        )}
+
+        {!isPayed && (
+          <PrimaryButton
+            title={UIMessage.getFullAccess}
+            onPress={async () => {
+              navigation.navigate("Menu Section", {
+                screen: "Subscription",
+              });
+            }}
           />
-          <SmallText>
-            {new Date((progress.duration - progress.position) * 1000)
-              .toLocaleTimeString()
-              .substring(3)
-              .replace("AM", "")
-              .trim()}
-          </SmallText>
-        </View>
-        <View style={styles.infoContainer}>
-          <BaseText center>{currentTrack?.title}</BaseText>
-          <SmallText center>{currentTrack?.category}</SmallText>
-        </View>
+        )}
       </View>
     </Background>
   );

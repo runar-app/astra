@@ -4,7 +4,7 @@ import { UIMessage } from "../../data/messages";
 import MusicPlayer from "../../components/MusicPlayer/MusicPlayer";
 import NetInfo from "@react-native-community/netinfo";
 
-export function MediaPlayerPage() {
+export function MediaPlayerPage({ navigation }: any) {
   const [isOnline, setIsOnline] = React.useState<boolean>(false);
 
   React.useEffect(() => {
@@ -27,5 +27,5 @@ export function MediaPlayerPage() {
     return <SmallLoaderPage loadingTextMessage={UIMessage.waitingForInternet} />;
   }
 
-  return <MusicPlayer />;
+  return <MusicPlayer navigation={navigation} />;
 }

@@ -40,6 +40,8 @@ interface UIMessages {
   weekly: string;
   monthly: string;
   yearly: string;
+
+  getFullAccess: string;
 }
 
 const en: UIMessages = {
@@ -77,12 +79,15 @@ const en: UIMessages = {
   subscriptionMainInfo2: "• Audio books",
   subscriptionMainInfo3: "• Chat bot",
   subscriptionMainInfo4: "• Library",
+
   subscriptionPay: "Pay",
   subscriptionStop: "Stop subscription",
 
   weekly: "Weekly",
   monthly: "Monthly",
   yearly: "Yearly",
+
+  getFullAccess: "Get full access",
 };
 
 const ru: UIMessages = {
@@ -122,6 +127,8 @@ const ru: UIMessages = {
   weekly: "Еженедельно",
   monthly: "Ежемесячно",
   yearly: "Ежегодно",
+
+  getFullAccess: "Получить полный доступ",
 };
 
 const messages: Record<SupportedLanguage, UIMessages> = {
