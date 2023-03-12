@@ -11,6 +11,7 @@ import { SmallText } from "../../components/Typography/SmallText";
 import LinkButton from "../../components/Button/LinkButton";
 import { SmallLoaderPage } from "../../components/Loader/SmallLoaderPage";
 import NetInfo from "@react-native-community/netinfo";
+import SecondaryButton from "../../components/Button/SecondaryButton";
 
 const styles = StyleSheet.create({
   page: {
@@ -42,8 +43,7 @@ export function SubscriptionScreen() {
 
   React.useEffect(() => {
     const listener = (purchaserInfo: CustomerInfo) => {
-      console.log("purchaserInfo from listener");
-      console.log(purchaserInfo);
+      console.log("Got info from listener. PurchaserInfo");
       setIsPayed(purchaserInfo.activeSubscriptions.length > 0);
     };
     Purchases.addCustomerInfoUpdateListener(listener);
@@ -52,8 +52,7 @@ export function SubscriptionScreen() {
       try {
         const customerInfo = await Purchases.getCustomerInfo();
         setIsPayed(customerInfo.activeSubscriptions.length > 0);
-        console.log("!!! CustomerInfo");
-        console.log(customerInfo);
+        console.log("Got customerInfo from get");
       } catch (e) {
         console.log("Error in fetching customer info");
         console.log(e);
@@ -85,9 +84,7 @@ export function SubscriptionScreen() {
         setLoading(true);
         console.log("Offers: request started");
         const offerings = await Purchases.getOfferings();
-        console.log("Offerings FROM global fetch: ");
-        console.log(JSON.stringify(offerings));
-        console.log("Offers: request finished2");
+        console.log("Offers: request finished");
 
         if (offerings.current === null) {
           console.log("offerings.current is null");
@@ -110,6 +107,18 @@ export function SubscriptionScreen() {
     };
     fetchData();
   }, []);
+
+  const restore = async () => {
+    setLoading(true);
+    console.log("Start restoring purchases");
+
+    try {
+      await Purchases.restorePurchases();
+    } catch (e) {
+      Alert.alert(`Error in restoring purchases`);
+    }
+    setLoading(false);
+  };
 
   if (!isOnline) {
     return <SmallLoaderPage loadingTextMessage={UIMessage.waitingForInternet} />;
@@ -163,6 +172,7 @@ export function SubscriptionScreen() {
           )}
 
           <LinkButton title={UIMessage.POCAndTerms} href="https://runar.app/privacy" />
+          <SecondaryButton title={UIMessage.restore} onPress={restore} />
         </View>
       </ScrollView>
     </Background>

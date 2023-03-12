@@ -46,6 +46,8 @@ interface UIMessages {
 
   POCAndTerms: string;
   subscriptionPaymentCompleted: string;
+
+  restore: string;
 }
 
 const en: UIMessages = {
@@ -97,6 +99,8 @@ const en: UIMessages = {
   POCAndTerms: "Privacy Policy & Terms of use",
 
   subscriptionPaymentCompleted: "✅ Payment completed ✅",
+
+  restore: "Restore",
 };
 
 const ru: UIMessages = {
@@ -142,6 +146,8 @@ const ru: UIMessages = {
   POCAndTerms: "Политика конфиденциальности и условия использования",
 
   subscriptionPaymentCompleted: "✅ Оплата выполнена ✅",
+
+  restore: "Восстановить",
 };
 
 const messages: Record<SupportedLanguage, UIMessages> = {
