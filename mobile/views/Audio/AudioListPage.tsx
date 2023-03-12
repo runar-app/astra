@@ -10,12 +10,14 @@ import NetInfo from "@react-native-community/netinfo";
 import { useTrackPlayerEvents, Event } from "react-native-track-player";
 import { BaseText } from "../../components/Typography/BaseText";
 import { SmallText } from "../../components/Typography/SmallText";
+import PrimaryButton from "../../components/Button/PrimaryButton";
 
 export function AudioListPage({ navigation }: any) {
   const [audios, setAudios] = React.useState<AudioBook[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
   const [isOnline, setIsOnline] = React.useState<boolean>(false);
   const [currentTrack, setCurrentTrack] = React.useState<AudioBook>();
+  const [isPayed, setIsPayed] = React.useState(false);
 
   useTrackPlayerEvents([Event.PlaybackTrackChanged], async (event) => {
     if (event.type !== Event.PlaybackTrackChanged || event.nextTrack === null) {
@@ -66,8 +68,20 @@ export function AudioListPage({ navigation }: any) {
     >
       <Background>
         {audios.length === 0 && <BaseText>{UIMessage.noAudiosFound}</BaseText>}
+        {!isPayed && (
+          <View style={{ padding: 10, paddingTop: 20 }}>
+            <PrimaryButton
+              title={UIMessage.getMoreAudios}
+              onPress={async () => {
+                navigation.navigate("Menu Section", {
+                  screen: "Subscription",
+                });
+              }}
+            />
+          </View>
+        )}
         <FlatList
-          data={audios}
+          data={audios.filter((audio, index) => isPayed || index < 5)}
           renderItem={({ item, index }) => {
             const isNeedToShowCategory =
               index === 0 || audios[index - 1].category !== item.category;

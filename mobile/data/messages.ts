@@ -42,6 +42,7 @@ interface UIMessages {
   yearly: string;
 
   getFullAccess: string;
+  getMoreAudios: string;
 }
 
 const en: UIMessages = {
@@ -88,6 +89,7 @@ const en: UIMessages = {
   yearly: "Yearly",
 
   getFullAccess: "Get full access",
+  getMoreAudios: "Get more audios",
 };
 
 const ru: UIMessages = {
@@ -129,6 +131,7 @@ const ru: UIMessages = {
   yearly: "Ежегодно",
 
   getFullAccess: "Получить полный доступ",
+  getMoreAudios: "Получить больше аудио",
 };
 
 const messages: Record<SupportedLanguage, UIMessages> = {
