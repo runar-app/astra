@@ -7,6 +7,7 @@ import PrimaryButton from "../../components/Button/PrimaryButton";
 import SecondaryButton from "../../components/Button/SecondaryButton";
 import Purchases from "react-native-purchases";
 import AlertButton from "../../components/Button/AlertButton";
+import LinkButton from "../../components/Button/LinkButton";
 
 const styles = StyleSheet.create({
   page: {
@@ -119,6 +120,8 @@ export function SubscriptionScreen() {
             />
           </>
         )}
+
+        <LinkButton title={UIMessage.POCAndTerms} href="https://runar.app/privacy" />
       </View>
     </Background>
   );
