@@ -17,6 +17,7 @@ const ColorPalette = {
 };
 
 export const Colors = {
+  ...ColorPalette,
   baseTextColor: ColorPalette.mainTextContent,
   smallTextColor: ColorPalette.subTextContent,
   loadingText: ColorPalette.primary,
@@ -25,6 +26,7 @@ export const Colors = {
   audioCoverListBorder: "rgba(255, 255, 255, 0.1)",
   audioCoverListBorderActive: "rgba(0, 0, 0, 0.6)",
   tagsBorder: "#c2c2c2",
+  buttonColor: "rgba(0, 0, 0, 0.6)",
 };
 
 export const RunarTheme = {

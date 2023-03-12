@@ -39,7 +39,6 @@ export default function App() {
         Purchases.configure({ apiKey: APIKeys.apple });
       }
 
-      /*
       const fetchData = async () => {
         try {
           console.log("Offers: request started");
@@ -51,8 +50,9 @@ export default function App() {
           console.log(e);
         }
       };
-      fetchData();
-      */
+      setTimeout(() => {
+        //fetchData();
+      }, 2000);
 
       try {
         await TrackPlayer.setupPlayer();

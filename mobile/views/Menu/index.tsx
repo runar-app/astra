@@ -6,6 +6,7 @@ import { MenuScreen } from "./Menu";
 import { UIMessage } from "../../data/messages";
 import { BaseText } from "../../components/Typography/BaseText";
 import { SmallText } from "../../components/Typography/SmallText";
+import { SubscriptionScreen } from "./Subscription";
 
 const styles = StyleSheet.create({
   page: {
@@ -50,6 +51,14 @@ export function MenuStackScreen() {
           title: UIMessage.aboutPageTitle,
         }}
         component={AboutScreen}
+      />
+
+      <MenuStack.Screen
+        name="Subscription"
+        options={{
+          title: UIMessage.subscription,
+        }}
+        component={SubscriptionScreen}
       />
     </MenuStack.Navigator>
   );

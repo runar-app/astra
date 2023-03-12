@@ -48,6 +48,10 @@ export function MenuScreen({ navigation }: any) {
           />
 
           <MenuButton title={UIMessage.appSettings} onPress={() => handleOpenSettings()} />
+          <MenuButton
+            title={UIMessage.subscription}
+            onPress={() => navigation.navigate("Subscription")}
+          />
         </View>
       </View>
     </Background>

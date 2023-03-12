@@ -28,6 +28,14 @@ interface UIMessages {
   noAudiosFound: string;
 
   appSettings: string;
+  subscription: string;
+
+  subscriptionMainInfo1: string;
+  subscriptionMainInfo2: string;
+  subscriptionMainInfo3: string;
+  subscriptionMainInfo4: string;
+  subscriptionPay: string;
+  subscriptionStop: string;
 }
 
 const en: UIMessages = {
@@ -59,6 +67,14 @@ const en: UIMessages = {
   noAudiosFound: "No audios found",
 
   appSettings: "App settings",
+  subscription: "Subscription",
+
+  subscriptionMainInfo1: "Get a full access to Runar. Subscribe now!",
+  subscriptionMainInfo2: "• Audio books",
+  subscriptionMainInfo3: "• Chat bot",
+  subscriptionMainInfo4: "• Library",
+  subscriptionPay: "Pay",
+  subscriptionStop: "Stop",
 };
 
 const ru: UIMessages = {
@@ -87,6 +103,13 @@ const ru: UIMessages = {
   noAudiosFound: "Аудио не найдено",
 
   appSettings: "Настройки приложения",
+  subscription: "Подписка",
+  subscriptionMainInfo1: "Получите полный доступ к Runar. Подпишитесь сейчас!",
+  subscriptionMainInfo2: "• Аудиокниги",
+  subscriptionMainInfo3: "• Чат бот",
+  subscriptionMainInfo4: "• Библиотека",
+  subscriptionPay: "Оплатить",
+  subscriptionStop: "Отменить",
 };
 
 const messages: Record<SupportedLanguage, UIMessages> = {
