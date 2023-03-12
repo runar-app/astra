@@ -41,6 +41,18 @@ function MusicPlayer({ navigation }: any) {
     };
     Purchases.addCustomerInfoUpdateListener(listener);
 
+    (async () => {
+      try {
+        const customerInfo = await Purchases.getCustomerInfo();
+        setIsPayed(customerInfo.activeSubscriptions.length > 0);
+        console.log("!!! CustomerInfo");
+        console.log(customerInfo);
+      } catch (e) {
+        console.log("Error in fetching customer info");
+        console.log(e);
+      }
+    })();
+
     return () => {
       Purchases.removeCustomerInfoUpdateListener(listener);
     };
