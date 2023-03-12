@@ -9,6 +9,8 @@ import AlertButton from "../../components/Button/AlertButton";
 import { Colors } from "../../commonStyle";
 import { SmallText } from "../../components/Typography/SmallText";
 import LinkButton from "../../components/Button/LinkButton";
+import { SmallLoaderPage } from "../../components/Loader/SmallLoaderPage";
+import NetInfo from "@react-native-community/netinfo";
 
 const styles = StyleSheet.create({
   page: {
@@ -22,31 +24,32 @@ const styles = StyleSheet.create({
 
 export function SubscriptionScreen() {
   const [isPayed, setIsPayed] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+
   const [purchasesPackages, setPurchasesPackages] = React.useState<PurchasesPackage[]>([]);
 
+  const [isOnline, setIsOnline] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsOnline(!!state.isConnected);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   const stopSubscription = async () => {
+    setLoading(true);
     try {
       console.log("Stop subscription: request started");
       setIsPayed(false);
     } catch (e) {
       console.log("Error in stopping subscription");
       console.log(e);
-      Alert.alert(`Error in stopping subscription`);
     }
-  };
-
-  const syncSubscription = async () => {
-    try {
-      console.log("Sync subscription: request started");
-      const purchaserInfo = await Purchases.getCustomerInfo();
-      console.log("purchaserInfo");
-      console.log(purchaserInfo);
-      setIsPayed(purchaserInfo.activeSubscriptions.length > 0);
-    } catch (e) {
-      console.log("Error in syncing subscription");
-      console.log(e);
-      Alert.alert(`Error in syncing subscription`);
-    }
+    setLoading(false);
   };
 
   React.useEffect(() => {
@@ -57,31 +60,44 @@ export function SubscriptionScreen() {
     };
     Purchases.addCustomerInfoUpdateListener(listener);
 
+    (async () => {
+      try {
+        const customerInfo = await Purchases.getCustomerInfo();
+        setIsPayed(customerInfo.activeSubscriptions.length > 0);
+        console.log("!!! CustomerInfo");
+        console.log(customerInfo);
+      } catch (e) {
+        console.log("Error in fetching customer info");
+        console.log(e);
+      }
+    })();
+
     return () => {
       Purchases.removeCustomerInfoUpdateListener(listener);
     };
   }, []);
 
   const paySubscription = async (packageItem: PurchasesPackage) => {
+    setLoading(true);
     try {
       console.log("Pay  subscription: request started");
-      console.log("Pay  subscription: request finished");
-      console.log(packageItem);
+
       await Purchases.purchasePackage(packageItem);
-      syncSubscription();
+      console.log("Pay  subscription: request finished");
     } catch (e) {
       console.log("Error in paying subscription");
       console.log(e);
-      Alert.alert(`Error in paying subscription`);
     }
+    setLoading(false);
   };
 
   React.useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         console.log("Offers: request started");
         const offerings = await Purchases.getOfferings();
-        console.log("Offerings: ");
+        console.log("Offerings FROM global fetch: ");
         console.log(JSON.stringify(offerings));
         console.log("Offers: request finished2");
 
@@ -94,20 +110,26 @@ export function SubscriptionScreen() {
         }
         const packages: PurchasesPackage[] = [];
         offerings.current.availablePackages.forEach((item) => {
-          console.log("item");
-          console.log(item);
           packages.push(item);
         });
         setPurchasesPackages(packages);
-        syncSubscription();
       } catch (e) {
         console.log("Error in fetching offers");
         console.log(e);
         Alert.alert(`Error in fetching offers`);
       }
+      setLoading(false);
     };
     fetchData();
   }, []);
+
+  if (!isOnline) {
+    return <SmallLoaderPage loadingTextMessage={UIMessage.waitingForInternet} />;
+  }
+
+  if (loading) {
+    return <SmallLoaderPage loadingTextMessage={UIMessage.loadingDataProgress} />;
+  }
 
   return (
     <Background>
