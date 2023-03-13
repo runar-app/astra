@@ -4,11 +4,7 @@ import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import { SendButton } from "../components/SendButton";
 import { useRouter } from "next/router";
-
-interface Message {
-  message: string;
-  type: "userMessage" | "apiMessage";
-}
+import { ChatRequest, Message } from "@/../common/Chat";
 
 interface InitMessage {
   en: Message;
@@ -17,14 +13,14 @@ interface InitMessage {
 
 const initMessage: InitMessage = {
   ru: {
-    message:
+    content:
       "Приветствую тебя! Готов помочь, сколько бы сил и мужества этого не стоило! Меня зовут Астра. Как твоё имя?",
-    type: "apiMessage",
+    role: "assistant",
   },
   en: {
-    message:
+    content:
       "Greetings! Ready to help, no matter how much strength and courage it costs! My name is Astra. What is your name?",
-    type: "apiMessage",
+    role: "assistant",
   },
 };
 
@@ -84,7 +80,7 @@ export default function Home() {
   const handleError = () => {
     setMessages((prevMessages) => [
       ...prevMessages,
-      { message: "Что-то сломалось. Попробуй задать вопрос позже", type: "apiMessage" },
+      { content: "Что-то сломалось. Попробуй задать вопрос позже", role: "assistant" },
     ]);
     setLoading(false);
     setUserInput("");
@@ -97,17 +93,17 @@ export default function Home() {
     textAreaRef?.current?.focus();
     setUserInput("");
     setLoading(true);
-    setMessages((prevMessages) => [...prevMessages, { message: userInput, type: "userMessage" }]);
+    setMessages((prevMessages) => [...prevMessages, { content: userInput, role: "user" }]);
 
-    const historyForChatModel = messages.map((message) => {
-      const author = message.type === "userMessage" ? "user" : "assistant";
-      const content = `${message.message || ""}`.trim();
+    const history: Message[] = messages.map((message) => {
+      const author = message.role === "assistant" ? "user" : "assistant";
+      const content = `${message.content || ""}`.trim();
       return { role: author, content: content };
     });
 
-    const requestData = { question: userInput, historyForChatModel };
+    const requestData: ChatRequest = { userMessage: userInput, history, language: lang };
 
-    const response = await fetch("/api/conversation", {
+    const response = await fetch("/api/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -122,15 +118,7 @@ export default function Home() {
 
     const data = await response.json();
 
-    if (data.result.error === "Unauthorized") {
-      handleError();
-      return;
-    }
-
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { message: data.result.text, type: "apiMessage" },
-    ]);
+    setMessages((prevMessages) => [...prevMessages, { content: data.text, role: "assistant" }]);
     setLoading(false);
     textAreaRef?.current?.focus();
   };
@@ -171,15 +159,15 @@ export default function Home() {
             <div
               key={index}
               className={
-                message.type === "userMessage" && loading && index === messages.length - 1
+                message.role === "user" && loading && index === messages.length - 1
                   ? styles.usermessagewaiting
-                  : message.type === "apiMessage"
+                  : message.role === "assistant"
                   ? styles.apimessage
                   : styles.usermessage
               }
             >
               {/* Display the correct icon depending on the message type */}
-              {message.type === "apiMessage" ? (
+              {message.role === "assistant" ? (
                 <Image
                   src="/parroticon.png"
                   alt="AI"
@@ -198,7 +186,7 @@ export default function Home() {
                   priority={true}
                 />
               )}
-              <div className={styles.markdownanswer}>{message.message}</div>
+              <div className={styles.markdownanswer}>{message.content}</div>
             </div>
           );
         })}

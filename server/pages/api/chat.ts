@@ -1,8 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { OpenAIChat } from "langchain/llms";
-import { LLMChain, ChainValues } from "langchain/chains";
+import { LLMChain } from "langchain/chains";
 import { PromptTemplate } from "langchain/prompts";
 import { ChatCompletionRequestMessage } from "openai";
+import { ChatRequest, ChatResponse } from "../../../common/Chat";
 
 const CONDENSE_PROMPT = PromptTemplate.fromTemplate(`
 {question}`);
@@ -17,13 +18,12 @@ const initMessage: ChatCompletionRequestMessage = {
 `,
 };
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<ChainValues>) {
-  const body = req.body;
-  const historyForChatModel = req.body.historyForChatModel as ChatCompletionRequestMessage[];
+export default async function handler(req: NextApiRequest, res: NextApiResponse<ChatResponse>) {
+  const { history, userMessage } = req.body as ChatRequest;
 
   const model = new OpenAIChat({
     modelName: "gpt-3.5-turbo",
-    prefixMessages: [initMessage, ...historyForChatModel],
+    prefixMessages: [initMessage, ...history],
   });
 
   const chatChain = new LLMChain({
@@ -32,8 +32,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   });
 
   const output = await chatChain.call({
-    question: body.question,
+    question: userMessage,
   });
 
-  res.status(200).json({ result: { text: output.text } });
+  res.status(200).json({ text: output.text });
 }
